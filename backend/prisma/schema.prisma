@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum RegistrationStatus {
+  PENDING_PAYMENT
+  CONFIRMED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PaymentProvider {
+  SIMULATED
+  RAZORPAY
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  passwordHash  String?
+  googleId      String?        @unique
+  avatarUrl     String?
+  college       String?
+  phone         String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  registrations Registration[]
+  notifications Notification[]
+}
+
+model Event {
+  id                String         @id @default(cuid())
+  title             String
+  slug              String         @unique
+  category          String
+  description       String         @db.Text
+  rules             String         @db.Text
+  venue             String
+  startsAt          DateTime
+  endsAt            DateTime
+  fee               Int            @default(0)
+  maxParticipants   Int
+  prizePool         String?
+  posterUrl         String?
+  coordinators       Coordinator[]
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  registrations     Registration[]
+}
+
+model Coordinator {
+  id      String @id @default(cuid())
+  name    String
+  phone   String
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Registration {
+  id           String             @id @default(cuid())
+  userId       String
+  eventId      String
+  status       RegistrationStatus @default(PENDING_PAYMENT)
+  ticketCode   String             @unique @default(cuid())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event        Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  payment      Payment?
+
+  @@unique([userId, eventId])
+}
+
+model Payment {
+  id             String          @id @default(cuid())
+  registrationId String          @unique
+  amount         Int
+  status         PaymentStatus   @default(PENDING)
+  provider       PaymentProvider @default(SIMULATED)
+  providerRefId  String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  registration   Registration    @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+}
+
+model Sponsor {
+  id        String   @id @default(cuid())
+  name      String
+  tier      String
+  logoUrl   String
+  website   String?
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  caption   String?
+  album     String   @default("General")
+  createdAt DateTime @default(now())
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
