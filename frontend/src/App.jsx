@@ -1,106 +1,73 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
+import About from "./components/About";
+import Schedule from "./components/Schedule";
+import Sponsors from "./components/Sponsors";
+import Teams from "./components/Teams";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import MandalaDecor from "./components/MandalaDecor";
 
-// ── Placeholder components (replaced commit-by-commit) ──────────────────────
-const AboutPlaceholder = () => (
-  <section
-    id="about"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      About Us — Commit 6
-    </p>
-  </section>
-);
-
-const GalleryPlaceholder = () => (
-  <section
-    id="gallery"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Gallery — Commit 7
-    </p>
-  </section>
-);
-
-const MerchandisePlaceholder = () => (
-  <section
-    id="merch"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Merchandise — Commit 8
-    </p>
-  </section>
-);
-
-const FooterPlaceholder = () => (
-  <footer
-    id="contact"
-    className="py-20 flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-sm tracking-widest">
-      Footer — Commit 8
-    </p>
-  </footer>
-);
-
-const SchedulePlaceholder = () => (
-  <section
-    id="schedule"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Schedule (Coming Soon)
-    </p>
-  </section>
-);
-
-const SponsorsPlaceholder = () => (
-  <section
-    id="sponsors"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Sponsors (Coming Soon)
-    </p>
-  </section>
-);
-
-const TeamsPlaceholder = () => (
-  <section
-    id="teams"
-    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Teams (Coming Soon)
-    </p>
-  </section>
-);
-// ─────────────────────────────────────────────────────────────────────────────
-
-function App() {
+export default function App() {
   return (
-    <div className="relative animate-page-in">
-      {/* Real Navbar from Commit 3 */}
+    <div className="app relative animate-page-in">
       <Navbar />
 
-      {/* ── Scrollable content ── */}
       <main>
         <HeroSection />
-        <SchedulePlaceholder />
-        <SponsorsPlaceholder />
-        <AboutPlaceholder />
-        <TeamsPlaceholder />
-        <GalleryPlaceholder />
-        <MerchandisePlaceholder />
+
+        {/* ---- Mandala decorations between sections (scrubbed rotation) ---- */}
+        <div style={{ position: "relative" }}>
+          {/* Left mandala near About section */}
+          <MandalaDecor
+            size="clamp(200px, 28vw, 420px)"
+            top="5%"
+            left="-10%"
+            rotateRange={[0, 120]}
+            scaleRange={[0.8, 1.1]}
+            opacity={0.05}
+          />
+
+          {/* Right mandala near Schedule */}
+          <MandalaDecor
+            size="clamp(180px, 22vw, 350px)"
+            top="35%"
+            right="-8%"
+            rotateRange={[0, -90]}
+            scaleRange={[0.9, 1.05]}
+            opacity={0.04}
+          />
+
+          {/* Left mandala near Teams */}
+          <MandalaDecor
+            size="clamp(220px, 25vw, 380px)"
+            top="65%"
+            left="-12%"
+            rotateRange={[0, 70]}
+            scaleRange={[0.85, 1]}
+            opacity={0.05}
+          />
+
+          {/* Right mandala near Contact */}
+          <MandalaDecor
+            size="clamp(160px, 20vw, 300px)"
+            top="88%"
+            right="-6%"
+            rotateRange={[0, -60]}
+            scaleRange={[0.9, 1.1]}
+            opacity={0.04}
+          />
+
+          <About />
+          <Schedule />
+          <Sponsors />
+          <Teams />
+          <Contact />
+        </div>
       </main>
 
-      <FooterPlaceholder />
+      <Footer />
     </div>
   );
 }
-
-export default App;

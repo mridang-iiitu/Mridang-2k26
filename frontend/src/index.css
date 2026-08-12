@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* ============================================
+   MRIDANG — Global Styles & Design Tokens
+   ============================================ */
+
 /* ─────────────────────────────────────────
    Custom Fonts (Tailwind v4 theme extension)
    ───────────────────────────────────────── */
@@ -15,11 +19,62 @@
   --color-overlay: rgba(0, 0, 0, 0.45);
 }
 
+:root {
+  /* ---- Color Palette ---- */
+  --color-bg: #0d0507;
+  --color-bg-hero: #1a0a10;
+  --color-bg-section: #120810;
+  --color-bg-section-alt: #0f060a;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(201, 168, 76, 0.15);
+  --color-border-hover: rgba(201, 168, 76, 0.35);
+
+  --color-accent-gold: #c9a84c;
+  --color-accent-gold-light: #e8d48b;
+  --color-accent-crimson: #8b3a4a;
+  --color-accent-rose: #c4566a;
+
+  --color-text-primary: #f5e6d3;
+  --color-text-secondary: #bfa48e;
+  --color-text-muted: #7a6055;
+  --color-text-heading: #fff5eb;
+
+  --color-gradient-start: #f5e6d3;
+  --color-gradient-mid: #c4566a;
+  --color-gradient-end: #6b2232;
+
+  --color-cta: #e8c547;
+  --color-cta-hover: #f5d96a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Spacing ---- */
+  --section-padding-y: clamp(4rem, 8vw, 8rem);
+  --section-padding-x: clamp(1.5rem, 5vw, 6rem);
+  --container-max: 1280px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* ─────────────────────────────────────────
    Base Reset & Document Behaviour
    ───────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 *,
@@ -134,7 +189,6 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-
 /* ─────────────────────────────────────────
    MRIDANG Hero Text Gradient Utility
    Usage: class="gradient-text"
@@ -185,7 +239,6 @@ button {
     opacity: 0;
     transform: translateY(40px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -198,7 +251,6 @@ button {
     opacity: 0;
     transform: translateY(-100%);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -207,12 +259,10 @@ button {
 
 /* "SCROLL TO EXPLORE" bouncing arrow */
 @keyframes ctaBounce {
-
   0%,
   100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-6px);
   }
@@ -220,12 +270,10 @@ button {
 
 /* Radio.webp ambient float */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
   }
-
   50% {
     transform: translateY(-12px);
   }
@@ -236,11 +284,9 @@ button {
   0% {
     background-position: 50% 0%;
   }
-
   50% {
     background-position: 50% 100%;
   }
-
   100% {
     background-position: 50% 0%;
   }
@@ -251,7 +297,6 @@ button {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -262,7 +307,6 @@ button {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(-360deg);
   }
@@ -270,12 +314,10 @@ button {
 
 /* Mandala breathing opacity pulse */
 @keyframes mandalaBreath {
-
   0%,
   100% {
     opacity: 0.6;
   }
-
   50% {
     opacity: 0.85;
   }
@@ -287,7 +329,6 @@ button {
     transform: rotateX(0deg);
     opacity: 1;
   }
-
   100% {
     transform: rotateX(-90deg);
     opacity: 0;
@@ -300,7 +341,6 @@ button {
     transform: rotateX(90deg);
     opacity: 0;
   }
-
   100% {
     transform: rotateX(0deg);
     opacity: 1;
@@ -309,12 +349,10 @@ button {
 
 /* Clock colon blink */
 @keyframes colonBlink {
-
   0%,
   100% {
     opacity: 1;
   }
-
   50% {
     opacity: 0.3;
   }
@@ -325,7 +363,6 @@ button {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
@@ -385,7 +422,6 @@ button {
    transitions (scroll) are kept intact.
    ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -427,13 +463,10 @@ button {
   -webkit-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
-  /* kills yellow flash on mobile/webkit */
   outline: none;
   outline-offset: 0;
   box-shadow: none;
   background-image: none;
-  /* no browser gradient on buttons */
-  /* GPU-accelerated: only transform + opacity */
   will-change: transform;
   transition:
     transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -443,7 +476,6 @@ button {
     border-color 200ms ease;
 }
 
-/* Strip hover highlight from all states too */
 .btn-base:hover,
 .btn-base:focus,
 .btn-base:active {
@@ -451,17 +483,14 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Focus ring for keyboard navigation only */
 .btn-base:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 3px;
 }
 
 /* ── Register variant ──────────────────── */
-/* Default: solid coral-pink, rounded-lg, dark burgundy text */
 .btn-register {
   background-color: #FF9797 !important;
-  /* !important overrides any Tailwind base reset */
   color: #280001 !important;
   border: 1.5px solid #FF9797 !important;
   border-radius: 8px !important;
@@ -479,11 +508,9 @@ button {
   display: flex;
   align-items: center;
   gap: 48px;
-  /* Spacing between links */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 9999px;
   padding: 16px 48px;
-  /* Generous vertical and horizontal padding */
   background-color: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -515,17 +542,14 @@ button {
   transform: scale(0.95);
 }
 
-/* Hover: scale up + transition to yellow */
 .btn-register:hover {
   background-color: #FFD700 !important;
   border-color: #FFD700 !important;
   color: #280001 !important;
   transform: scale(1.05);
   box-shadow: none;
-  /* ensure no yellow browser shadow leaks */
 }
 
-/* Active: press feedback */
 .btn-register:active {
   transform: scale(0.96);
   background-color: #e6b800 !important;
@@ -533,7 +557,6 @@ button {
 }
 
 /* ── Contact variant ───────────────────── */
-/* Transparent, white outline              */
 .btn-contact {
   background-color: transparent;
   color: #ffffff;
@@ -553,7 +576,6 @@ button {
 }
 
 /* ── CTA variant ───────────────────────── */
-/* Outlined pill for in-section actions   */
 .btn-cta {
   background-color: transparent;
   color: #ffffff;
@@ -571,4 +593,636 @@ button {
   transform: scale(0.95);
 }
 
-/* Viewport Frame removed by user request */
+
+/* ============================================
+   Component Styles Consolidated
+   ============================================ */
+
+/* ---- About.css ---- */
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about__text p {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.about__highlight {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.about__stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-accent-gold);
+  line-height: 1;
+}
+
+.about__stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+}
+
+.about__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about__image-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  aspect-ratio: 4/3;
+  width: 100%;
+  background: var(--color-surface);
+}
+
+.about__image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__image-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.15), transparent 70%);
+  border-radius: 50%;
+  top: -50px;
+  right: -50px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .about__content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about__highlight {
+    gap: 2rem;
+  }
+
+  .about__stat-number {
+    font-size: 2rem;
+  }
+}
+
+/* ---- Countdown.css ---- */
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.2rem;
+  background: rgba(13, 5, 7, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.countdown__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 44px;
+}
+
+.countdown__number {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown__label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.countdown__sep {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  padding: 0 0.15rem;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+}
+
+/* ---- Sponsors.css ---- */
+.sponsors {
+  position: relative;
+  overflow: hidden;
+}
+
+.sponsors__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sponsors__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  min-height: 120px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.sponsors__card:hover {
+  border-color: var(--color-border-hover);
+  transform: scale(1.03);
+}
+
+.sponsors__card-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.sponsors__tier {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sponsors__tier-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-accent-gold);
+  position: relative;
+  display: inline-block;
+}
+
+.sponsors__tier-label::before,
+.sponsors__tier-label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.sponsors__tier-label::before {
+  right: calc(100% + 1rem);
+}
+
+.sponsors__tier-label::after {
+  left: calc(100% + 1rem);
+}
+
+@media (max-width: 600px) {
+  .sponsors__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- MandalaDecor.css ---- */
+.mandala-float {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.mandala-float__img {
+  width: 100%;
+  height: auto;
+  opacity: 0.06;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.1));
+}
+
+/* ---- Schedule.css ---- */
+.schedule {
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.schedule__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.schedule__card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+.schedule__card-day {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.schedule__card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: 0.5rem;
+}
+
+.schedule__card-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.schedule__card-time {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.schedule__card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-gold),
+    var(--color-accent-crimson)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.schedule__card:hover .schedule__card-accent {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .schedule__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Teams.css ---- */
+.teams {
+  position: relative;
+  overflow: hidden;
+}
+
+.teams__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.teams__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.teams__card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-4px);
+}
+
+.teams__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-crimson),
+    var(--color-accent-gold)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.teams__name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 0.3rem;
+}
+
+.teams__role {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.teams__dept {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 600px) {
+  .teams__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .teams__avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ---- Contact.css ---- */
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact__info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.contact__info-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent-gold);
+}
+
+.contact__info-value {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.contact__info-value a {
+  transition: color 0.25s ease;
+}
+
+.contact__info-value a:hover {
+  color: var(--color-accent-gold);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact__field label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+}
+
+.contact__field input,
+.contact__field textarea {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  transition: border-color 0.3s ease;
+  outline: none;
+  resize: vertical;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  border-color: var(--color-accent-gold);
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.contact__submit {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-gold),
+    var(--color-accent-crimson)
+  );
+  color: var(--color-text-heading);
+  border-radius: var(--radius-md);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.contact__submit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .contact__content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ---- Footer.css ---- */
+.footer {
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 3rem 0 2rem;
+}
+
+.footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer__logo-img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.footer__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: 0.05em;
+}
+
+.footer__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer__link {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  transition: color 0.25s ease;
+}
+
+.footer__link:hover {
+  color: var(--color-text-primary);
+}
+
+.footer__copy {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 600px) {
+  .footer__content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+}
+
+/* ---- App.css ---- */
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+
+.mandala-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+  width: clamp(200px, 30vw, 500px);
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.15));
+}
+
+.mandala-decoration--left {
+  left: -8%;
+}
+
+.mandala-decoration--right {
+  right: -8%;
+}
