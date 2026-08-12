@@ -1,98 +1,69 @@
-import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const NAV_LINKS = [
+  { label: "Schedule", href: "#schedule" },
+  { label: "Sponsors", href: "#sponsors" },
+  { label: "About Us", href: "#about" },
+  { label: "Teams", href: "#teams" },
+  { label: "Contact Us", href: "#contact" },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Events", path: "/events" },
-    { name: "Schedule", path: "/schedule" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Sponsors", path: "/sponsors" },
-    { name: "Team", path: "/team" },
-    { name: "Contact", path: "/contact" },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950 text-white shadow-lg">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-xl font-bold">
-            M
-          </div>
-
-          <div>
-            <h1 className="text-xl font-bold tracking-wide">
-              MRIDANG
-            </h1>
-            <p className="text-xs text-gray-400">
-              Cultural Fest
-            </p>
-          </div>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              className={({ isActive }) =>
-                `transition duration-300 ${
-                  isActive
-                    ? "text-red-500 font-semibold"
-                    : "text-gray-300 hover:text-red-400"
-                }`
-              }
-            >
-              {item.name}
-            </NavLink>
-          ))}
-
-          <button className="rounded-lg bg-red-600 px-5 py-2 font-medium transition hover:bg-red-700">
-            Register
-          </button>
+    <motion.nav
+      className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+      id="navbar"
+    >
+      {/* Brand / Logo */}
+      <div className="navbar__brand">
+        <img
+          src="/assets/logo.png"
+          alt="Mridang Logo"
+          className="navbar__logo-img"
+        />
+        <div className="navbar__sponsor">
+          <span>Sponsored by</span>
+          <span className="navbar__sponsor-name">86 PURE</span>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="space-y-4 border-t border-slate-800 bg-slate-900 px-6 py-5 md:hidden">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `block ${
-                  isActive
-                    ? "text-red-500 font-semibold"
-                    : "text-gray-300"
-                }`
-              }
-            >
-              {item.name}
-            </NavLink>
-          ))}
+      {/* Nav Links */}
+      <div className="navbar__links">
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="navbar__link"
+            id={`nav-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
 
-          <button className="mt-3 w-full rounded-lg bg-red-600 py-2 font-semibold hover:bg-red-700">
-            Register
-          </button>
-        </div>
-      )}
-    </nav>
+      {/* CTA */}
+      <a href="#register" className="navbar__cta" id="nav-register">
+        REGISTER
+      </a>
+
+      {/* Mobile Toggle */}
+      <button className="navbar__mobile-toggle" aria-label="Open menu" id="nav-mobile-toggle">
+        <span />
+        <span />
+        <span />
+      </button>
+    </motion.nav>
   );
 }
