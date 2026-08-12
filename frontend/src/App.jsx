@@ -1,39 +1,69 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Schedule from "./components/Schedule";
+import Sponsors from "./components/Sponsors";
+import Teams from "./components/Teams";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Events from "./pages/Events";
-import Schedule from "./pages/Schedule";
-import Team from "./pages/Team";
-import Gallery from "./pages/Gallery";
-import Sponsors from "./pages/Sponsors";
-import Register from "./pages/Register";
-import Contact from "./pages/Contact";
+import MandalaDecor from "./components/MandalaDecor";
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/sponsors" element={<Sponsors />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
+    <div className="app">
+      <Navbar />
+      <Hero />
+
+      {/* ---- Mandala decorations between sections (scrubbed rotation) ---- */}
+      <div style={{ position: "relative" }}>
+        {/* Left mandala near About section */}
+        <MandalaDecor
+          size="clamp(200px, 28vw, 420px)"
+          top="5%"
+          left="-10%"
+          rotateRange={[0, 120]}
+          scaleRange={[0.8, 1.1]}
+          opacity={0.05}
+        />
+
+        {/* Right mandala near Schedule */}
+        <MandalaDecor
+          size="clamp(180px, 22vw, 350px)"
+          top="35%"
+          right="-8%"
+          rotateRange={[0, -90]}
+          scaleRange={[0.9, 1.05]}
+          opacity={0.04}
+        />
+
+        {/* Left mandala near Teams */}
+        <MandalaDecor
+          size="clamp(220px, 25vw, 380px)"
+          top="65%"
+          left="-12%"
+          rotateRange={[0, 70]}
+          scaleRange={[0.85, 1]}
+          opacity={0.05}
+        />
+
+        {/* Right mandala near Contact */}
+        <MandalaDecor
+          size="clamp(160px, 20vw, 300px)"
+          top="88%"
+          right="-6%"
+          rotateRange={[0, -60]}
+          scaleRange={[0.9, 1.1]}
+          opacity={0.04}
+        />
+
+        <About />
+        <Schedule />
+        <Sponsors />
+        <Teams />
+        <Contact />
       </div>
-    </Router>
+
+      <Footer />
+    </div>
   );
 }
-
-export default App;
