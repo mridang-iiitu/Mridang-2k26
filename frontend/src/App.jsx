@@ -1,57 +1,114 @@
 import React from "react";
-import { Button } from "./components/ui/Button";
-import { MandalaBackground } from "./components/ui/MandalaBackground";
+import Navbar from "./components/Navbar";
+
+// ── Placeholder components (replaced commit-by-commit) ──────────────────────
+const HeroPlaceholder = () => (
+  <section
+    id="hero"
+    className="min-h-screen flex items-center justify-center text-center"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Hero Section — Commit 4 &amp; 5
+    </p>
+  </section>
+);
+
+const AboutPlaceholder = () => (
+  <section
+    id="about"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      About Us — Commit 6
+    </p>
+  </section>
+);
+
+const GalleryPlaceholder = () => (
+  <section
+    id="gallery"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Gallery — Commit 7
+    </p>
+  </section>
+);
+
+const MerchandisePlaceholder = () => (
+  <section
+    id="merch"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Merchandise — Commit 8
+    </p>
+  </section>
+);
+
+const FooterPlaceholder = () => (
+  <footer
+    id="contact"
+    className="py-20 flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-sm tracking-widest">
+      Footer — Commit 8
+    </p>
+  </footer>
+);
+
+const SchedulePlaceholder = () => (
+  <section
+    id="schedule"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Schedule (Coming Soon)
+    </p>
+  </section>
+);
+
+const SponsorsPlaceholder = () => (
+  <section
+    id="sponsors"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Sponsors (Coming Soon)
+    </p>
+  </section>
+);
+
+const TeamsPlaceholder = () => (
+  <section
+    id="teams"
+    className="min-h-[80vh] flex items-center justify-center border-t border-white/10"
+  >
+    <p className="text-white/40 font-sans text-lg tracking-widest">
+      Teams (Coming Soon)
+    </p>
+  </section>
+);
+// ─────────────────────────────────────────────────────────────────────────────
 
 function App() {
   return (
     <div className="relative animate-page-in">
+      {/* Real Navbar from Commit 3 */}
+      <Navbar />
 
-      {/* ── UI PREVIEW (remove after review) ──────────────────────────────── */}
-      <section className="min-h-screen flex flex-col items-center justify-center gap-16 px-8 py-20">
+      {/* ── Scrollable content ── */}
+      <main>
+        <HeroPlaceholder />
+        <SchedulePlaceholder />
+        <SponsorsPlaceholder />
+        <AboutPlaceholder />
+        <TeamsPlaceholder />
+        <GalleryPlaceholder />
+        <MerchandisePlaceholder />
+      </main>
 
-        {/* Button Showcase */}
-        <div className="flex flex-col items-center gap-8">
-          <p className="font-sans text-white/50 text-xs tracking-[0.3em] uppercase">
-            Button Variants — Commit 2 Preview
-          </p>
-
-          {/* All three variants side by side */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button variant="register">Register Now</Button>
-            <Button variant="contact">Contact Us</Button>
-            <Button variant="cta">Buy Now</Button>
-          </div>
-
-          {/* Larger / with icon example */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button variant="register" className="px-10 py-3 text-base">
-              Register ↗
-            </Button>
-            <Button variant="contact" className="px-10 py-3 text-base">
-              Contact Us
-            </Button>
-          </div>
-        </div>
-
-        {/* Mandala Showcase */}
-        <div className="flex flex-col items-center gap-4">
-          <p className="font-sans text-white/50 text-xs tracking-[0.3em] uppercase">
-            Mandala — Commit 2 Preview
-          </p>
-          <div className="relative flex items-center justify-center w-64 h-64">
-            <MandalaBackground
-              direction="cw"
-              speed={30}
-              opacity={0.7}
-              pulse={true}
-              size="w-64 h-64"
-            />
-          </div>
-        </div>
-
-      </section>
-      {/* ── END PREVIEW ───────────────────────────────────────────────────── */}
-
+      <FooterPlaceholder />
     </div>
   );
 }
