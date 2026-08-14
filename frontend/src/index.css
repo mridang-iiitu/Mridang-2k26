@@ -75,6 +75,26 @@ body {
 }
 
 /* ─────────────────────────────────────────
+   Global Button Reset
+   Forces browsers (Chrome, Safari, Firefox)
+   to stop applying their own button styling
+   before our .btn-* classes take over.
+   ───────────────────────────────────────── */
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ─────────────────────────────────────────
    MRIDANG Hero Text Gradient Utility
    Usage: class="gradient-text"
    ───────────────────────────────────────── */
@@ -302,4 +322,121 @@ body {
     animation: none;
     background-position: 50% 50%;
   }
+}
+
+/* ─────────────────────────────────────────
+   Button System
+   All interactive states live here in plain
+   CSS so Tailwind's JIT scanner never misses
+   a dynamically-composed class name.
+   ───────────────────────────────────────── */
+
+/* ── Shared base ───────────────────────── */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  /* Strip ALL browser-native button defaults */
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;  /* kills yellow flash on mobile/webkit */
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+  background-image: none;          /* no browser gradient on buttons */
+  /* GPU-accelerated: only transform + opacity */
+  will-change: transform;
+  transition:
+    transform        200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 200ms ease,
+    color            200ms ease,
+    box-shadow       200ms ease,
+    border-color     200ms ease;
+}
+
+/* Strip hover highlight from all states too */
+.btn-base:hover,
+.btn-base:focus,
+.btn-base:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus ring for keyboard navigation only */
+.btn-base:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* ── Register variant ──────────────────── */
+/* Default: solid pure white pill, dark burgundy text */
+.btn-register {
+  background-color: #ffffff !important;  /* !important overrides any Tailwind base reset */
+  color: #280001 !important;
+  border: 1.5px solid #ffffff;
+}
+
+/* Hover: scale up + soft coral tint */
+.btn-register:hover {
+  background-color: #FFE0E0 !important;
+  border-color: #FFE0E0 !important;
+  color: #280001 !important;
+  transform: scale(1.05);
+  box-shadow: none;              /* ensure no yellow browser shadow leaks */
+}
+
+/* Active: press feedback */
+.btn-register:active {
+  transform: scale(0.96);
+  background-color: #ffc8c8 !important;
+}
+
+/* ── Contact variant ───────────────────── */
+/* Transparent, white outline              */
+.btn-contact {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+}
+
+.btn-contact:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 14px rgba(255, 151, 151, 0.55);
+  transform: scale(1.03);
+}
+
+.btn-contact:active {
+  transform: scale(0.96);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── CTA variant ───────────────────────── */
+/* Outlined pill for in-section actions   */
+.btn-cta {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+}
+
+.btn-cta:hover {
+  background-color: #ffffff;
+  color: #280001;
+  border-color: #ffffff;
+  transform: scale(1.03);
+}
+
+.btn-cta:active {
+  transform: scale(0.95);
 }
