@@ -1,4 +1,64 @@
-@import "tailwindcss";
+/* ============================================
+   MRIDANG — Global Styles & Design Tokens
+   ============================================ */
+
+:root {
+  /* ---- Color Palette ---- */
+  --color-bg: #0d0507;
+  --color-bg-hero: #1a0a10;
+  --color-bg-section: #120810;
+  --color-bg-section-alt: #0f060a;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(201, 168, 76, 0.15);
+  --color-border-hover: rgba(201, 168, 76, 0.35);
+
+  --color-accent-gold: #c9a84c;
+  --color-accent-gold-light: #e8d48b;
+  --color-accent-crimson: #8b3a4a;
+  --color-accent-rose: #c4566a;
+
+  --color-text-primary: #f5e6d3;
+  --color-text-secondary: #bfa48e;
+  --color-text-muted: #7a6055;
+  --color-text-heading: #fff5eb;
+
+  --color-gradient-start: #f5e6d3;
+  --color-gradient-mid: #c4566a;
+  --color-gradient-end: #6b2232;
+
+  --color-cta: #e8c547;
+  --color-cta-hover: #f5d96a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Spacing ---- */
+  --section-padding-y: clamp(4rem, 8vw, 8rem);
+  --section-padding-x: clamp(1.5rem, 5vw, 6rem);
+  --container-max: 1280px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 /* ============================================
    MRIDANG — Global Styles & Design Tokens
@@ -138,6 +198,47 @@ body {
   /* IE and Edge */
 }
 
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ---- Utility ---- */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.section {
+  padding: var(--section-padding-y) 0;
+  position: relative;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.section-subtext {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* ---- Scrollbar ---- */
 ::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Opera */
@@ -826,7 +927,7 @@ button {
   }
 }
 
-/* ---- MandalaDecor.css ---- */
+  /* ---- MandalaDecor.css ---- */
 .mandala-float {
   position: absolute;
   pointer-events: none;
