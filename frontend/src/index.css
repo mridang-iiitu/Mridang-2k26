@@ -6,7 +6,7 @@
 @theme {
   --font-dorsa: "Dorsa", sans-serif;
   --font-imbue: "Imbue", serif;
-  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --font-sans: "Google Sans", "Inter", "Segoe UI", sans-serif;
 
   /* Brand colour tokens */
   --color-coral: #FF9797;
@@ -43,27 +43,49 @@ body {
   background-position: center top;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  /* Dark overlay so text is always legible */
-  background-color: var(--color-burgundy);
+  background-color: #0a0000;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Deep crimson/maroon overlay — two layers for richness */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* Warm crimson gradient overlay */
+  background:
+    linear-gradient(180deg,
+      rgba(45, 0, 2, 0.80) 0%,
+      rgba(70, 4, 6, 0.70) 35%,
+      rgba(40, 0, 1, 0.88) 100%),
+    /* Extra red color wash */
+    rgba(80, 0, 5, 0.45);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All content above overlay */
+body>* {
+  position: relative;
+  z-index: 1;
 }
 
 /* ─────────────────────────────────────────
-   Scrollbar Styling
+   Hide Scrollbar Globally
    ───────────────────────────────────────── */
+html,
+body {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0f0000;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-coral);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-coral-light);
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 /* ─────────────────────────────────────────
@@ -72,6 +94,24 @@ body {
 ::selection {
   background: var(--color-coral);
   color: var(--color-burgundy);
+}
+
+/* ─────────────────────────────────────────
+   Hero Title — Viewport-Filling Typography
+   The MRIDANG text must fill roughly 75-80%
+   of the viewport height and stretch edge
+   to edge. We use a vh-based font-size to
+   keep it consistent across all ≥1024px
+   screens.
+   ───────────────────────────────────────── */
+.hero-title {
+  font-size: 72vh;
+  line-height: 1.0;
+  letter-spacing: 0em;
+  transform: scaleY(1.4) scaleX(1.6);
+  transform-origin: center center;
+  padding: 2.2vh 0;
+  display: block;
 }
 
 /* ─────────────────────────────────────────
@@ -84,7 +124,8 @@ button {
   -webkit-appearance: none;
   appearance: none;
   background: none;
-  border: none;
+  border-style: solid;
+  border-width: 0;
   padding: 0;
   margin: 0;
   font: inherit;
@@ -99,12 +140,12 @@ button {
    Usage: class="gradient-text"
    ───────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(180deg, #ffffff 19.71%, #ff9797 53.85%, #280001 97.12%);
-  background-size: 100% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 6s ease-in-out infinite;
+  color: transparent;
+  background-image: linear-gradient(180deg, #FFFFFF 20%, #FF9797 40%, #280001 80%);
+  background-color: transparent;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
 /* ─────────────────────────────────────────
@@ -116,6 +157,7 @@ button {
   transform: translateY(30px);
   transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .reveal-up.is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -128,6 +170,7 @@ button {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -142,6 +185,7 @@ button {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -154,6 +198,7 @@ button {
     opacity: 0;
     transform: translateY(-100%);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -162,9 +207,12 @@ button {
 
 /* "SCROLL TO EXPLORE" bouncing arrow */
 @keyframes ctaBounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -172,9 +220,12 @@ button {
 
 /* Radio.webp ambient float */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
@@ -185,9 +236,11 @@ button {
   0% {
     background-position: 50% 0%;
   }
+
   50% {
     background-position: 50% 100%;
   }
+
   100% {
     background-position: 50% 0%;
   }
@@ -198,6 +251,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -208,6 +262,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(-360deg);
   }
@@ -215,9 +270,12 @@ button {
 
 /* Mandala breathing opacity pulse */
 @keyframes mandalaBreath {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.6;
   }
+
   50% {
     opacity: 0.85;
   }
@@ -229,6 +287,7 @@ button {
     transform: rotateX(0deg);
     opacity: 1;
   }
+
   100% {
     transform: rotateX(-90deg);
     opacity: 0;
@@ -241,6 +300,7 @@ button {
     transform: rotateX(90deg);
     opacity: 0;
   }
+
   100% {
     transform: rotateX(0deg);
     opacity: 1;
@@ -249,9 +309,12 @@ button {
 
 /* Clock colon blink */
 @keyframes colonBlink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.3;
   }
@@ -262,6 +325,7 @@ button {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -273,33 +337,43 @@ button {
 .animate-slide-up {
   animation: slideUpFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .animate-slide-down {
   animation: slideDownFadeIn 0.6s ease-out forwards;
 }
+
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+
 .animate-cta-bounce {
   animation: ctaBounce 1.5s ease-in-out infinite;
 }
+
 .animate-rotate-cw {
   animation: rotateCW linear infinite;
 }
+
 .animate-rotate-ccw {
   animation: rotateCCW linear infinite;
 }
+
 .animate-mandala-breath {
   animation: mandalaBreath 4s ease-in-out infinite;
 }
+
 .animate-colon-blink {
   animation: colonBlink 1s ease-in-out infinite;
 }
+
 .animate-page-in {
   animation: pageFadeIn 0.8s ease-out forwards;
 }
+
 .animate-flip-out {
   animation: flipOut 0.2s ease-in forwards;
 }
+
 .animate-flip-in {
   animation: flipIn 0.2s ease-out forwards;
 }
@@ -311,6 +385,7 @@ button {
    transitions (scroll) are kept intact.
    ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -318,6 +393,7 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
   .gradient-text {
     animation: none;
     background-position: 50% 50%;
@@ -350,19 +426,21 @@ button {
   /* Strip ALL browser-native button defaults */
   -webkit-appearance: none;
   appearance: none;
-  -webkit-tap-highlight-color: transparent;  /* kills yellow flash on mobile/webkit */
+  -webkit-tap-highlight-color: transparent;
+  /* kills yellow flash on mobile/webkit */
   outline: none;
   outline-offset: 0;
   box-shadow: none;
-  background-image: none;          /* no browser gradient on buttons */
+  background-image: none;
+  /* no browser gradient on buttons */
   /* GPU-accelerated: only transform + opacity */
   will-change: transform;
   transition:
-    transform        200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
     background-color 200ms ease,
-    color            200ms ease,
-    box-shadow       200ms ease,
-    border-color     200ms ease;
+    color 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
 }
 
 /* Strip hover highlight from all states too */
@@ -380,26 +458,78 @@ button {
 }
 
 /* ── Register variant ──────────────────── */
-/* Default: solid pure white pill, dark burgundy text */
+/* Default: solid coral-pink, rounded-lg, dark burgundy text */
 .btn-register {
-  background-color: #ffffff !important;  /* !important overrides any Tailwind base reset */
+  background-color: #FF9797 !important;
+  /* !important overrides any Tailwind base reset */
   color: #280001 !important;
-  border: 1.5px solid #ffffff;
+  border: 1.5px solid #FF9797 !important;
+  border-radius: 8px !important;
+  padding: 12px 32px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
 }
 
-/* Hover: scale up + soft coral tint */
+/* ─────────────────────────────────────────
+   Navbar Custom Capsule & Links
+   ───────────────────────────────────────── */
+.nav-menu-capsule {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  /* Spacing between links */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 16px 48px;
+  /* Generous vertical and horizontal padding */
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  transition: all 300ms ease;
+}
+
+.nav-menu-capsule:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.nav-menu-link {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.nav-menu-link:hover {
+  color: #FFD700;
+  transform: scale(1.05);
+}
+
+.nav-menu-link:active {
+  transform: scale(0.95);
+}
+
+/* Hover: scale up + transition to yellow */
 .btn-register:hover {
-  background-color: #FFE0E0 !important;
-  border-color: #FFE0E0 !important;
+  background-color: #FFD700 !important;
+  border-color: #FFD700 !important;
   color: #280001 !important;
   transform: scale(1.05);
-  box-shadow: none;              /* ensure no yellow browser shadow leaks */
+  box-shadow: none;
+  /* ensure no yellow browser shadow leaks */
 }
 
 /* Active: press feedback */
 .btn-register:active {
   transform: scale(0.96);
-  background-color: #ffc8c8 !important;
+  background-color: #e6b800 !important;
+  border-color: #e6b800 !important;
 }
 
 /* ── Contact variant ───────────────────── */
@@ -440,3 +570,5 @@ button {
 .btn-cta:active {
   transform: scale(0.95);
 }
+
+/* Viewport Frame removed by user request */

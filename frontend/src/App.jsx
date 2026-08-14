@@ -1,18 +1,8 @@
 import React from "react";
 import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
 
 // ── Placeholder components (replaced commit-by-commit) ──────────────────────
-const HeroPlaceholder = () => (
-  <section
-    id="hero"
-    className="min-h-screen flex items-center justify-center text-center"
-  >
-    <p className="text-white/40 font-sans text-lg tracking-widest">
-      Hero Section — Commit 4 &amp; 5
-    </p>
-  </section>
-);
-
 const AboutPlaceholder = () => (
   <section
     id="about"
@@ -99,7 +89,7 @@ function App() {
 
       {/* ── Scrollable content ── */}
       <main>
-        <HeroPlaceholder />
+        <HeroSection />
         <SchedulePlaceholder />
         <SponsorsPlaceholder />
         <AboutPlaceholder />
