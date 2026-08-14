@@ -1,43 +1,305 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   Custom Fonts (Tailwind v4 theme extension)
+   ───────────────────────────────────────── */
+@theme {
+  --font-dorsa: "Dorsa", sans-serif;
+  --font-imbue: "Imbue", serif;
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+
+  /* Brand colour tokens */
+  --color-coral: #FF9797;
+  --color-coral-light: #FFE0E0;
+  --color-burgundy: #280001;
+  --color-overlay: rgba(0, 0, 0, 0.45);
+}
+
+/* ─────────────────────────────────────────
+   Base Reset & Document Behaviour
+   ───────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
 
-body {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Inter, "Segoe UI", sans-serif;
-  background: #FFFFF0;
-  color: #1e293b;
 }
 
-* {
-  box-sizing: border-box;
+/* ─────────────────────────────────────────
+   Global Background
+   BG1.webp is fixed so it never scrolls —
+   all sections scroll over one shared image.
+   ───────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  color: #ffffff;
+  background-image: url("/src/assets/BG1.webp");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /* Dark overlay so text is always legible */
+  background-color: var(--color-burgundy);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-section {
-  padding: 80px 8%;
-}
-
+/* ─────────────────────────────────────────
+   Scrollbar Styling
+   ───────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #0f0000;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #ef4444;
+  background: var(--color-coral);
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #dc2626;
+  background: var(--color-coral-light);
 }
 
+/* ─────────────────────────────────────────
+   Text Selection
+   ───────────────────────────────────────── */
 ::selection {
-  background: #ef4444;
-  color: white;
+  background: var(--color-coral);
+  color: var(--color-burgundy);
+}
+
+/* ─────────────────────────────────────────
+   MRIDANG Hero Text Gradient Utility
+   Usage: class="gradient-text"
+   ───────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(180deg, #ffffff 19.71%, #ff9797 53.85%, #280001 97.12%);
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   Reveal Utility (for IntersectionObserver)
+   Components start hidden, gain .is-visible
+   ───────────────────────────────────────── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   Hide native scrollbar on carousel tracks
+   ───────────────────────────────────────── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────
+   @keyframes Definitions
+   ───────────────────────────────────────── */
+
+/* Hero heading entry — slides up from 40px */
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navbar slides down from above viewport */
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* "SCROLL TO EXPLORE" bouncing arrow */
+@keyframes ctaBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Radio.webp ambient float */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* MRIDANG gradient shimmer — moves gradient position */
+@keyframes gradientShift {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+/* Mandala clockwise rotation */
+@keyframes rotateCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mandala counter-clockwise rotation */
+@keyframes rotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Mandala breathing opacity pulse */
+@keyframes mandalaBreath {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Clock digit flip — exit (old number folds away) */
+@keyframes flipOut {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+
+/* Clock digit flip — entry (new number unfolds in) */
+@keyframes flipIn {
+  0% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+/* Clock colon blink */
+@keyframes colonBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Page fade-in on load */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Animation Helper Classes
+   ───────────────────────────────────────── */
+.animate-slide-up {
+  animation: slideUpFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-slide-down {
+  animation: slideDownFadeIn 0.6s ease-out forwards;
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-cta-bounce {
+  animation: ctaBounce 1.5s ease-in-out infinite;
+}
+.animate-rotate-cw {
+  animation: rotateCW linear infinite;
+}
+.animate-rotate-ccw {
+  animation: rotateCCW linear infinite;
+}
+.animate-mandala-breath {
+  animation: mandalaBreath 4s ease-in-out infinite;
+}
+.animate-colon-blink {
+  animation: colonBlink 1s ease-in-out infinite;
+}
+.animate-page-in {
+  animation: pageFadeIn 0.8s ease-out forwards;
+}
+.animate-flip-out {
+  animation: flipOut 0.2s ease-in forwards;
+}
+.animate-flip-in {
+  animation: flipIn 0.2s ease-out forwards;
+}
+
+/* ─────────────────────────────────────────
+   Reduced Motion Accessibility
+   Disables all decorative animations for
+   users who prefer reduced motion. Functional
+   transitions (scroll) are kept intact.
+   ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .gradient-text {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
