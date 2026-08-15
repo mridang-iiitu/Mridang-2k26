@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import mandalaSvg from "../assets/mandala.svg";
 
 /**
  * MandalaDecor — A floating mandala that rotates & scales tied to scroll.
@@ -44,7 +45,7 @@ export default function MandalaDecor({
       style={{ ...positionStyle, rotate, scale }}
     >
       <img
-        src="/assets/mandala.png"
+        src={mandalaSvg}
         alt=""
         className="mandala-float__img"
         style={{ opacity }}
