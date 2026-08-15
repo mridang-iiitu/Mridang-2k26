@@ -9,7 +9,7 @@ import React from "react";
  * doesn't need to see the class names dynamically.
  *
  * Variants:
- *   "register" — Solid white pill, dark text. Scales up + coral tint on hover.
+ *   "register" — Fixed 129x35 blush box, dark text. Fill lifts to white on hover.
  *   "contact"  — Transparent outlined pill. Coral glow + white fill on hover.
  *   "cta"      — Outlined pill for in-section actions. Fills white on hover.
  *
