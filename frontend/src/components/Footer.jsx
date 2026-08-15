@@ -1,3 +1,4 @@
+import logoImg from "../assets/mr.webp";
 
 export default function Footer() {
   return (
@@ -5,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__content">
           <div className="footer__brand">
-            <img src="/assets/logo.png" alt="Mridang" className="footer__logo-img" />
+            <img src={logoImg} alt="Mridang" className="footer__logo-img" />
             <span className="footer__title">MRIDANG</span>
           </div>
 

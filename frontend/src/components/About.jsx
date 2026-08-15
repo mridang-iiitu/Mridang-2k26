@@ -6,6 +6,7 @@ import {
   staggerContainer,
   viewportConfig,
 } from "../hooks/animations";
+import bgImg from "../assets/BG1.webp";
 
 const stats = [
   { number: "5K+", label: "Attendees" },
@@ -88,7 +89,7 @@ export default function About() {
           >
             <div className="about__image-frame">
               <img
-                src="/assets/hero-bg.jpg"
+                src={bgImg}
                 alt="Mridang cultural fest performance"
               />
             </div>
