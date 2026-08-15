@@ -39,14 +39,14 @@ export function Button({
   if (href) {
     return (
       <a href={href} className={classes} {...rest}>
-        {children}
+        <span>{children}</span>
       </a>
     );
   }
 
   return (
     <button type="button" onClick={onClick} className={classes} {...rest}>
-      {children}
+      <span>{children}</span>
     </button>
   );
 }

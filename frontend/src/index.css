@@ -72,7 +72,7 @@
 @theme {
   --font-dorsa: "Dorsa", sans-serif;
   --font-imbue: "Imbue", serif;
-  --font-sans: "Google Sans", "Inter", "Segoe UI", sans-serif;
+  --font-sans: "Google Sans Flex", "Inter", "Segoe UI", sans-serif;
 
   /* Brand colour tokens */
   --color-coral: #FF9797;
@@ -342,6 +342,7 @@ button {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -354,6 +355,7 @@ button {
     opacity: 0;
     transform: translateY(-100%);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -362,10 +364,12 @@ button {
 
 /* "SCROLL TO EXPLORE" bouncing arrow */
 @keyframes ctaBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -373,10 +377,12 @@ button {
 
 /* Radio.webp ambient float */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
@@ -387,9 +393,11 @@ button {
   0% {
     background-position: 50% 0%;
   }
+
   50% {
     background-position: 50% 100%;
   }
+
   100% {
     background-position: 50% 0%;
   }
@@ -400,6 +408,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -410,6 +419,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(-360deg);
   }
@@ -417,10 +427,12 @@ button {
 
 /* Mandala breathing opacity pulse */
 @keyframes mandalaBreath {
+
   0%,
   100% {
     opacity: 0.6;
   }
+
   50% {
     opacity: 0.85;
   }
@@ -432,6 +444,7 @@ button {
     transform: rotateX(0deg);
     opacity: 1;
   }
+
   100% {
     transform: rotateX(-90deg);
     opacity: 0;
@@ -444,6 +457,7 @@ button {
     transform: rotateX(90deg);
     opacity: 0;
   }
+
   100% {
     transform: rotateX(0deg);
     opacity: 1;
@@ -452,10 +466,12 @@ button {
 
 /* Clock colon blink */
 @keyframes colonBlink {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.3;
   }
@@ -466,6 +482,7 @@ button {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -525,6 +542,7 @@ button {
    transitions (scroll) are kept intact.
    ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -593,15 +611,47 @@ button {
 
 /* ── Register variant ──────────────────── */
 .btn-register {
-  background-color: #FF9797 !important;
+  position: relative;
+  overflow: hidden;
+  background-color: #FFD700 !important;
+  /* Base is yellow (revealed on hover) */
   color: #280001 !important;
-  border: 1.5px solid #FF9797 !important;
+  border: none !important;
   border-radius: 8px !important;
-  padding: 12px 32px !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.15em !important;
+  padding: 10px 32px !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
   text-transform: uppercase !important;
+}
+
+.btn-register span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  text-align: center;
+}
+
+.btn-register::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20%;
+  width: 140%;
+  height: 100%;
+  background: #FF9797;
+  /* Initial layer (current colour) */
+  transform: skew(30deg);
+  transition: transform 0.8s cubic-bezier(0.3, 1, 0.8, 1);
+  z-index: 0;
+}
+
+.btn-register:hover::before {
+  transform: translate3d(120%, 0, 0) skew(30deg);
+}
+
+.btn-register:active {
+  transform: scale(0.96);
 }
 
 /* ─────────────────────────────────────────
@@ -610,25 +660,30 @@ button {
 .nav-menu-capsule {
   display: flex;
   align-items: center;
-  gap: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
-  padding: 16px 48px;
+  gap: 32px;
+  border: 1.25px solid rgba(255, 194, 194, 0.933);
+  border-radius: 16px;
+  padding: 8px 32px;
+  background-color: transparent;
+  transition: all 300ms ease;
+}
+
+.nav-menu-capsule.scrolled-capsule {
+  border-color: rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  transition: all 300ms ease;
 }
 
-.nav-menu-capsule:hover {
+.nav-menu-capsule.scrolled-capsule:hover {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
 .nav-menu-link {
   font-family: var(--font-sans);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.05em;
   text-decoration: none;
@@ -643,20 +698,6 @@ button {
 
 .nav-menu-link:active {
   transform: scale(0.95);
-}
-
-.btn-register:hover {
-  background-color: #FFD700 !important;
-  border-color: #FFD700 !important;
-  color: #280001 !important;
-  transform: scale(1.05);
-  box-shadow: none;
-}
-
-.btn-register:active {
-  transform: scale(0.96);
-  background-color: #e6b800 !important;
-  border-color: #e6b800 !important;
 }
 
 /* ── Contact variant ───────────────────── */
@@ -930,7 +971,7 @@ button {
   }
 }
 
-  /* ---- MandalaDecor.css ---- */
+/* ---- MandalaDecor.css ---- */
 .mandala-float {
   position: absolute;
   pointer-events: none;
@@ -1009,11 +1050,9 @@ button {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--color-accent-gold),
-    var(--color-accent-crimson)
-  );
+  background: linear-gradient(90deg,
+      var(--color-accent-gold),
+      var(--color-accent-crimson));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -1061,11 +1100,9 @@ button {
   height: 80px;
   border-radius: 50%;
   margin: 0 auto 1.25rem;
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-crimson),
-    var(--color-accent-gold)
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-crimson),
+      var(--color-accent-gold));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1207,11 +1244,9 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   padding: 0.9rem 2.5rem;
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-gold),
-    var(--color-accent-crimson)
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-gold),
+      var(--color-accent-crimson));
   color: var(--color-text-heading);
   border-radius: var(--radius-md);
   transition: opacity 0.3s ease, transform 0.3s ease;
