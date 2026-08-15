@@ -3,3 +3,7 @@ implementation_plan.md
 mr.png
 node_modules
 frontend/dist/
+.idea/
+
+# Local-only working context file (not team documentation)
+PROJECT_CONTEXT.md

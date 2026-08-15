@@ -333,6 +333,41 @@ button {
 }
 
 /* ─────────────────────────────────────────
+   Gradient Ring — Figma "Rectangle 41"
+   1px border with a #FFFFFF -> #FF7C7C gradient.
+   CSS cannot put a gradient on the `border`
+   property, so the gradient is painted on a
+   pseudo-element and the interior is masked out,
+   leaving only the 1px ring. This keeps the
+   element's own background independent, which
+   matters here: the fill is #000000 at just 10%,
+   so a background-clip approach would let the
+   gradient bleed through the whole box.
+   ───────────────────────────────────────── */
+.gradient-ring {
+  position: relative;
+}
+
+.gradient-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  /* Figma: linear gradient, #FFFFFF -> #FF7C7C */
+  background: linear-gradient(180deg, #FFFFFF 0%, #FF7C7C 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
    @keyframes Definitions
    ───────────────────────────────────────── */
 
