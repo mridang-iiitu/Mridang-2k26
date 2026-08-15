@@ -74,7 +74,7 @@ export default function HeroSection() {
             top: "67%",
             left: "45%",
             width: "16%",
-            animationDuration: "3s"
+            animationDuration: "11s"
           }}
         />
       </div>
