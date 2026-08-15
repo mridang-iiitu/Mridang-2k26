@@ -173,14 +173,23 @@ export default function HeroSection() {
           animate={{
             left: isAbout ? "10%" : "50%",
             x: isAbout ? "0%" : "-50%",
-            bottom: "4vh"
+            bottom: "2vh"
           }}
           transition={transitionConfig}
         >
           <div className={`flex flex-col items-center ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationDelay: "600ms", animationFillMode: "both" }}>
-            <div className="gradient-ring flex flex-col items-center w-[31.6vh] h-[19.3vh] pt-[1.22vh] rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10">
+            <motion.div
+              className="gradient-ring flex flex-col items-center p-[1vh] rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10 overflow-hidden"
+              initial={false}
+              animate={{
+                height: isAbout ? "12.8vh" : "19.3vh",
+                scale: isAbout ? 1.1 : 1
+              }}
+              style={{ width: "31.6vh", transformOrigin: "bottom left" }}
+              transition={transitionConfig}
+            >
 
-              <div className="flex items-center justify-center w-[29.6vh] h-[10.8vh] border border-white/20 rounded-[1.53vh] bg-black/30 shadow-[0_4px_5px_0_rgba(0,0,0,0.5)] select-none">
+              <div className="flex items-center justify-center w-full h-[10.8vh] border border-white/20 rounded-[1.53vh] bg-black/30 shadow-[0_4px_5px_0_rgba(0,0,0,0.5)] select-none shrink-0">
                 <div className="flex items-baseline justify-center gap-x-[0.4vh]">
                   {COUNTDOWN_UNITS.map((unit, i) => (
                     <React.Fragment key={unit.label}>
@@ -201,13 +210,13 @@ export default function HeroSection() {
                 initial={false}
                 animate={{ opacity: isAbout ? 0 : 1 }}
                 transition={fastTransition}
-                className="mt-[1.84vh]"
+                className="w-full h-[6.5vh] shrink-0 flex items-center justify-center"
               >
-                <span className="font-dorsa text-[2.4vh] tracking-[0.25em] text-white/70 uppercase">
+                <span className="font-dorsa text-[3.5vh] tracking-[0.25em] text-white/70 uppercase">
                   Scroll to Explore
                 </span>
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 
