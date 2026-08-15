@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import radioImg from "../assets/Radio.webp";
 import radioControl from "../assets/radio-control.webp";
 import mandala from "../assets/mandala.svg";
+import mrImg from "../assets/mr.webp";
+import { Button } from "./ui/Button";
 
-// Placeholder values — matches the Figma frame. Swap for <Countdown /> to go live.
 const COUNTDOWN_UNITS = [
   { value: "45", label: "days" },
   { value: "16", label: "hours" },
@@ -11,240 +13,293 @@ const COUNTDOWN_UNITS = [
   { value: "12", label: "sec" },
 ];
 
+const COLLAGE_IMAGES = [
+  "https://images.unsplash.com/photo-1540039155732-6762e15bc9c4?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1470229722913-7c090be5c560?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1533174000259-01cb412144eb?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80"
+];
+
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef(null);
+  const [isAbout, setIsAbout] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
 
-  const scrollTo = (e, id) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Trigger transition when scrolled past 15% of the sticky container
+    if (latest > 0.15 && !isAbout) {
+      setIsAbout(true);
+    } else if (latest <= 0.15 && isAbout) {
+      setIsAbout(false);
+    }
+  });
+
+  const transitionConfig = { duration: 4, ease: [0.16, 1, 0.3, 1] };
+  const fastTransition = { duration: 2, ease: "easeOut" };
 
   return (
-    <section
-      id="hero"
-      className="relative w-full h-screen overflow-hidden"
-    >
-      {/* ── MRIDANG Back Layer (Gradient Fill) — below the radio ── */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 px-[2%]">
-        <div
-          className={`
-            w-full flex justify-center
-            ${mounted ? "animate-slide-up" : "opacity-0"}
-          `}
-          style={{ animationFillMode: "both" }}
+    <section ref={containerRef} id="hero" className="relative w-full h-[150vh]">
+
+      {/* ── STICKY CONTAINER ── */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
+
+        {/* ==============================================================
+            HERO LAYER
+            ============================================================== */}
+
+        {/* ── MRIDANG Back Layer (Gradient Fill) ── */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center z-10 px-[2%]"
+          initial={false}
+          animate={{ y: isAbout ? "-100vh" : "0vh", opacity: isAbout ? 0 : 1 }}
+          transition={transitionConfig}
         >
-          <h1 className="hero-title font-dorsa gradient-text select-none text-center w-full">
-            MRIDANG
-          </h1>
-        </div>
-      </div>
-
-      {/* ────────────────────────────────────
-          Radio Image — top right, below outline layer but above register button
-          ──────────────────────────────────── */}
-      <div
-        className={`
-          absolute z-[20]
-          top-[10vh] right-[-5%]
-          w-[60vh] max-w-[540px] min-w-[320px]
-          animate-float
-          ${mounted ? "animate-slide-up" : "opacity-0"}
-        `}
-        style={{ animationDelay: "400ms", animationFillMode: "both" }}
-      >
-        <img
-          src={radioImg}
-          alt="Vintage Radio"
-          draggable="false"
-          className="w-full select-none opacity-95"
-        />
-        
-        {/* Radio Control Knob — positioned on radio button, rotating */}
-        <img
-          src={radioControl}
-          alt="Radio Control"
-          draggable="false"
-          className="absolute select-none opacity-95 animate-rotate-cw"
-          style={{ 
-            top: "67%",
-            left: "45%",
-            width: "16%",
-            animationDuration: "11s"
-          }}
-        />
-      </div>
-
-      {/* ── MRIDANG Front Layer (Outline Style) — above the radio ── */}
-      <div className="absolute inset-0 flex items-center justify-center z-[25] px-[2%] pointer-events-none">
-        <div
-          className={`
-            w-full flex justify-center
-            ${mounted ? "animate-slide-up" : "opacity-0"}
-          `}
-          style={{ animationFillMode: "both" }}
-        >
-          <svg
-            className="hero-title select-none"
-            style={{ height: "72vh", width: "auto", transform: "scaleY(1.5) scaleX(1.7) scale(1)", transformOrigin: "center center" }}
-            viewBox="0 0 600 280"
-            preserveAspectRatio="xMidYMid meet"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id="outlineGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="05%" stopColor="#FFFFFF" />
-                <stop offset="40%" stopColor="#FFB6B6" />
-                <stop offset="85%" stopColor="#320708" />
-              </linearGradient>
-            </defs>
-            <text
-              x="50%"
-              y="50%"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="none"
-              stroke="url(#outlineGrad)"
-              strokeWidth="1"
-              fontFamily="'Dorsa', sans-serif"
-              fontSize="280"
-              letterSpacing="0em"
-            >
-              MRIDANG
-            </text>
-          </svg>
-        </div>
-      </div>
-
-      {/* ────────────────────────────────────
-          Mandala — halo behind clock (half visible, rotating)
-          ──────────────────────────────────── */}
-      <div
-        className="absolute z-[5] bottom-0 left-1/2 w-[54vw] max-w-[720px] min-w-[420px] pointer-events-none select-none"
-        style={{ transform: "translate(-50%, 50%)" }}
-      >
-        <img
-          src={mandala}
-          alt=""
-          aria-hidden="true"
-          draggable="false"
-          className="w-full h-auto opacity-30 animate-rotate-ccw pointer-events-none select-none"
-          style={{ animationDuration: "35s" }}
-        />
-      </div>
-
-      {/* ────────────────────────────────────
-          Bottom bar: IIITU PRESENTS | Clock | INCOMING
-          ──────────────────────────────────── */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 px-8 lg:px-12 pb-8 lg:pb-10 flex items-end justify-center">
-
-        {/* Left — IIITU PRESENTS */}
-        <p
-          className={`
-            absolute left-8 lg:left-12 bottom-8 lg:bottom-10
-            font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80
-            py-1
-            ${mounted ? "opacity-100" : "opacity-0"}
-            transition-opacity duration-1000 delay-500
-          `}
-          style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
-        >
-          IIITU PRESENTS
-        </p>
-
-        {/* Center — Countdown + Scroll CTA */}
-        <div
-          className={`
-            flex flex-col items-center z-10
-            ${mounted ? "animate-slide-up" : "opacity-0"}
-          `}
-          style={{ animationDelay: "600ms", animationFillMode: "both" }}
-        >
-          {/* Countdown — Figma "Rectangle 41" (outer) wrapping "Rectangle 42" (clock).
-              Rectangle 41 contains BOTH the clock and the SCROLL TO EXPLORE CTA:
-              its coords are top 810 / height 189, the clock is top 822 / height 106,
-              which leaves 12px above the clock and 71px below it for the CTA.
-
-                outer box ("Rectangle 41") 310 x 189 -> 31.6vh x 19.3vh
-                  radius 20px            -> 2.04vh
-                  fill   #000000 @ 10%   -> bg-black/10
-                  border 1px gradient #FFFFFF -> #FF7C7C  (.gradient-ring in index.css)
-                  shadow 0 / 0 / blur 8 / spread 7, #000000 @ 50%
-
-              Sizes taken from the Figma frame (1489 x 980):
-                inner box ("Rectangle 42") 290 x 106 -> 29.6vh x 10.8vh
-                  radius 15px            -> 1.53vh
-                  fill   #000000 @ 30%   -> bg-black/30
-                  border 1px #FFFFFF 20% -> border-white/20 (inner alignment
-                                            = border-box, already global)
-                  shadow 0 / 4 / 5 / 0, #000000 @ 50%
-                digits row 252 x 72    -> 6.6vh font on 1.1 leading
-                labels     ~24 tall    -> 2vh font on 1.2 leading
-                outer ring ~10px gap   -> 1vh padding
-              Expressed in vh so the proportions hold as the viewport scales.
-              Colons are the SAME font size as the digits — the colon glyph
-              naturally sits low in the em box, which is what gives the design
-              its alignment. Baseline alignment does the rest. */}
-          <div className="gradient-ring flex flex-col items-center w-[31.6vh] h-[19.3vh] pt-[1.22vh] rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10">
-
-            {/* Rectangle 42 — the clock box */}
-            <div className="flex items-center justify-center w-[29.6vh] h-[10.8vh] border border-white/20 rounded-[1.53vh] bg-black/30 shadow-[0_4px_5px_0_rgba(0,0,0,0.5)] select-none">
-              <div className="flex items-baseline justify-center gap-x-[0.4vh]">
-                {COUNTDOWN_UNITS.map((unit, i) => (
-                  <React.Fragment key={unit.label}>
-                    <div className="flex flex-col items-center min-w-[4.9vh]">
-                      <span className="font-imbue text-[6.6vh] leading-[1.1] text-white">
-                        {unit.value}
-                      </span>
-                      <span className="font-imbue text-[2vh] leading-[1.2] text-white/70">
-                        {unit.label}
-                      </span>
-                    </div>
-
-                    {i < COUNTDOWN_UNITS.length - 1 && (
-                      <span className="font-imbue text-[6.6vh] leading-[1.1] text-white/75 animate-colon-blink">
-                        :
-                      </span>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-
-            {/* Scroll CTA — lives inside Rectangle 41, in the 71px below the clock */}
-            <a
-              href="#about"
-              onClick={(e) => scrollTo(e, "about")}
-              className="
-                font-dorsa text-[2.4vh] mt-[1.84vh]
-                tracking-[0.25em] text-white/70
-                hover:text-white transition-colors duration-300
-                animate-cta-bounce uppercase
-              "
-            >
-              Scroll to Explore
-            </a>
+          <div className={`w-full flex justify-center ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationFillMode: "both" }}>
+            <h1 className="hero-title font-dorsa gradient-text select-none text-center w-full">MRIDANG</h1>
           </div>
+        </motion.div>
+
+        {/* ── MRIDANG Front Layer (Outline Style) ── */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center z-[25] px-[2%] pointer-events-none"
+          initial={false}
+          animate={{ y: isAbout ? "-100vh" : "0vh", opacity: isAbout ? 0 : 1 }}
+          transition={transitionConfig}
+        >
+          <div className={`w-full flex justify-center ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationFillMode: "both" }}>
+            <svg
+              className="hero-title select-none"
+              style={{ height: "72vh", width: "auto", transform: "scaleY(1.5) scaleX(1.7) scale(1)", transformOrigin: "center center" }}
+              viewBox="0 0 600 280"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="outlineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="05%" stopColor="#FFFFFF" />
+                  <stop offset="40%" stopColor="#FFB6B6" />
+                  <stop offset="85%" stopColor="#320708" />
+                </linearGradient>
+              </defs>
+              <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fill="none" stroke="url(#outlineGrad)" strokeWidth="1" fontFamily="'Dorsa', sans-serif" fontSize="280">MRIDANG</text>
+            </svg>
+          </div>
+        </motion.div>
+
+        {/* ── Radio Image ── */}
+        <div className={`absolute z-[20] top-[10vh] right-[-5%] w-[60vh] max-w-[540px] min-w-[320px] ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationDelay: "400ms", animationFillMode: "both" }}>
+          <motion.div
+            initial={false}
+            animate={{
+              x: isAbout ? "50vw" : "0vw",
+              y: isAbout ? "-100vh" : "0vh",
+              rotate: isAbout ? -45 : 0
+            }}
+            transition={transitionConfig}
+            className="w-full h-full"
+          >
+            <div className="animate-float">
+              <img src={radioImg} alt="Vintage Radio" draggable="false" className="w-full select-none opacity-95" />
+              <img src={radioControl} alt="Control" draggable="false" className="absolute select-none opacity-95 animate-rotate-cw" style={{ top: "67%", left: "45%", width: "16%", animationDuration: "11s" }} />
+            </div>
+          </motion.div>
         </div>
 
-        {/* Right — INCOMING */}
-        <p
-          className={`
-            absolute right-8 lg:right-12 bottom-8 lg:bottom-10
-            font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80
-            py-1
-            ${mounted ? "opacity-100" : "opacity-0"}
-            transition-opacity duration-1000 delay-500
-          `}
-          style={{ transform: "scaleY(1.35)", transformOrigin: "bottom right" }}
+        {/* ── IIITU PRESENTS & INCOMING (Hero State) ── */}
+        <motion.div
+          className="absolute inset-0 z-30 pointer-events-none"
+          initial={false}
+          animate={{ opacity: isAbout ? 0 : 1 }}
+          transition={fastTransition}
         >
-          INCOMING
-        </p>
+          <motion.p
+            className="absolute left-8 lg:left-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
+            initial={false}
+            animate={{ x: isAbout ? "-50vw" : "0vw" }}
+            transition={transitionConfig}
+          >
+            IIITU PRESENTS
+          </motion.p>
+          <motion.p
+            className="absolute right-8 lg:right-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            style={{ transform: "scaleY(1.35)", transformOrigin: "bottom right" }}
+            initial={false}
+            animate={{ x: isAbout ? "50vw" : "0vw" }}
+            transition={transitionConfig}
+          >
+            INCOMING
+          </motion.p>
+        </motion.div>
+
+        {/* ==============================================================
+            SHARED / MOVING LAYER
+            ============================================================== */}
+
+        {/* ── Mandala Background ── */}
+        <motion.div
+          className="absolute z-[5] w-[54vw] max-w-[720px] min-w-[420px] pointer-events-none select-none"
+          initial={false}
+          animate={{
+            left: isAbout ? "0%" : "50%",
+            x: isAbout ? "-30%" : "-50%",
+            bottom: "0vh",
+            y: "50%"
+          }}
+          transition={transitionConfig}
+        >
+          <img src={mandala} alt="" aria-hidden="true" draggable="false" className="w-full h-auto opacity-30 animate-rotate-ccw" style={{ animationDuration: "35s" }} />
+        </motion.div>
+
+        {/* ── Countdown Clock + Scroll CTA ── */}
+        <motion.div
+          className="absolute z-[40]"
+          initial={false}
+          animate={{
+            left: isAbout ? "10%" : "50%",
+            x: isAbout ? "0%" : "-50%",
+            bottom: "2vh"
+          }}
+          transition={transitionConfig}
+        >
+          <div className={`flex flex-col items-center ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationDelay: "600ms", animationFillMode: "both" }}>
+            <motion.div
+              className="gradient-ring flex flex-col items-center p-[1vh] rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10 overflow-hidden"
+              initial={false}
+              animate={{
+                height: isAbout ? "12.8vh" : "19.3vh",
+                scale: isAbout ? 0.9 : 1
+              }}
+              style={{ width: "31.6vh", transformOrigin: "bottom left" }}
+              transition={transitionConfig}
+            >
+
+              <div className="flex items-center justify-center w-full h-[10.8vh] border border-white/20 rounded-[1.53vh] bg-black/30 shadow-[0_4px_5px_0_rgba(0,0,0,0.5)] select-none shrink-0">
+                <div className="flex items-baseline justify-center gap-x-[0.4vh]">
+                  {COUNTDOWN_UNITS.map((unit, i) => (
+                    <React.Fragment key={unit.label}>
+                      <div className="flex flex-col items-center min-w-[4.9vh]">
+                        <span className="font-imbue text-[6.6vh] leading-[1.1] text-white">{unit.value}</span>
+                        <span className="font-imbue text-[2vh] leading-[1.2] text-white/70">{unit.label}</span>
+                      </div>
+                      {i < COUNTDOWN_UNITS.length - 1 && (
+                        <span className="font-imbue text-[6.6vh] leading-[1.1] text-white/75 animate-colon-blink">:</span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+
+              {/* Scroll CTA inside clock box */}
+              <motion.div
+                initial={false}
+                animate={{ opacity: isAbout ? 0 : 1 }}
+                transition={fastTransition}
+                className="w-full h-[6.5vh] shrink-0 flex items-center justify-center"
+              >
+                <span className="font-dorsa text-[3.5vh] tracking-[0.25em] text-white/70 uppercase">
+                  Scroll to Explore
+                </span>
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+
+
+        {/* ==============================================================
+            ABOUT LAYER
+            ============================================================== */}
+
+        {/* ── About Left Text & Buttons ── */}
+        <motion.div
+          className="absolute top-[14vh] left-[10%] w-full max-w-xl z-30"
+          initial={false}
+          animate={{
+            opacity: isAbout ? 1 : 0,
+            x: isAbout ? "0px" : "-50px"
+          }}
+          transition={transitionConfig}
+          style={{ pointerEvents: isAbout ? "auto" : "none" }}
+        >
+          <div className="flex items-end gap-2">
+            <img src={mrImg} alt="Mridang" className="h-[80px] lg:h-[110px] w-auto object-contain" />
+            <h2
+              className="font-dorsa text-white text-[64px] lg:text-[100px] leading-[0.7] tracking-widest uppercase mb-[-8px] lg:mb-[-12px]"
+              style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
+            >
+              INCOMING
+            </h2>
+          </div>
+          <p
+            className="text-white/80 font-sans text-lg lg:text-[22px] leading-[1.8] max-w-lg text-justify font-medium"
+            style={{ marginTop: "40px" }}
+          >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad
+            minim veniam, quis nostrud exercitation laboris ut aliqui.
+          </p>
+          <div
+            className="flex flex-wrap items-center gap-6"
+            style={{ marginTop: "40px" }}
+          >
+            <Button variant="explore">EXPLORE</Button>
+            <Button variant="register">REGISTER</Button>
+          </div>
+        </motion.div>
+
+        {/* ── About Right Photos ── */}
+        <motion.div
+          className="absolute top-[15vh] right-[5%] w-[45%] h-[70vh] z-30 pointer-events-none"
+          initial={false}
+          animate={{
+            x: isAbout ? "0vw" : "100vw",
+            rotate: isAbout ? 0 : -20,
+            opacity: isAbout ? 1 : 0
+          }}
+          transition={transitionConfig}
+        >
+          <div className="w-full h-full grid grid-cols-4 grid-rows-4 gap-3 lg:gap-4 pointer-events-auto">
+            {COLLAGE_IMAGES.map((src, i) => {
+              let spanClass = "";
+              if (i === 0) spanClass = "col-span-2 row-span-2";
+              else if (i === 1) spanClass = "col-span-1 row-span-2";
+              else if (i === 2) spanClass = "col-span-1 row-span-1";
+              else if (i === 3) spanClass = "col-span-1 row-span-1";
+              else if (i === 4) spanClass = "col-span-1 row-span-2";
+              else if (i === 5) spanClass = "col-span-1 row-span-2";
+              else if (i === 6) spanClass = "col-span-2 row-span-1";
+              else if (i === 7) spanClass = "col-span-2 row-span-1";
+
+              return (
+                <motion.div
+                  key={i}
+                  className={`${spanClass} relative overflow-hidden bg-black/50 shadow-2xl rounded-sm ${i === 7 ? 'border-[3px] border-[#0099ff]' : ''}`}
+                  whileHover={{ filter: "grayscale(0%)", scale: 1.05, zIndex: 50 }}
+                  style={{ filter: "grayscale(100%)", opacity: 0.7 }}
+                >
+                  <img src={src} alt="" className="w-full h-full object-cover" />
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

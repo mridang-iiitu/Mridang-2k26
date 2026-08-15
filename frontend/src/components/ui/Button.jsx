@@ -32,6 +32,7 @@ export function Button({
     register: "btn-register",
     contact: "btn-contact",
     cta: "btn-cta",
+    explore: "btn-explore",
   }[variant] ?? "btn-register";
 
   const classes = `btn-base ${variantClass} ${className}`.trim();
