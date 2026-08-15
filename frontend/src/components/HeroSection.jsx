@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import radioImg from "../assets/Radio.webp";
+import radioControl from "../assets/radio-control.webp";
 import mandala from "../assets/mandala.svg";
 
 // Placeholder values — matches the Figma frame. Swap for <Countdown /> to go live.
@@ -46,19 +47,37 @@ export default function HeroSection() {
       {/* ────────────────────────────────────
           Radio Image — top right, below outline layer but above register button
           ──────────────────────────────────── */}
-      <img
-        src={radioImg}
-        alt="Vintage Radio"
-        draggable="false"
+      <div
         className={`
           absolute z-[20]
           top-[10vh] right-[-5%]
           w-[60vh] max-w-[540px] min-w-[320px]
-          animate-float select-none opacity-95
+          animate-float
           ${mounted ? "animate-slide-up" : "opacity-0"}
         `}
         style={{ animationDelay: "400ms", animationFillMode: "both" }}
-      />
+      >
+        <img
+          src={radioImg}
+          alt="Vintage Radio"
+          draggable="false"
+          className="w-full select-none opacity-95"
+        />
+        
+        {/* Radio Control Knob — positioned on radio button, rotating */}
+        <img
+          src={radioControl}
+          alt="Radio Control"
+          draggable="false"
+          className="absolute select-none opacity-95 animate-rotate-cw"
+          style={{ 
+            top: "67%",
+            left: "45%",
+            width: "16%",
+            animationDuration: "11s"
+          }}
+        />
+      </div>
 
       {/* ── MRIDANG Front Layer (Outline Style) — above the radio ── */}
       <div className="absolute inset-0 flex items-center justify-center z-[25] px-[2%] pointer-events-none">
