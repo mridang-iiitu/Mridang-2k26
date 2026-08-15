@@ -183,7 +183,7 @@ export default function HeroSection() {
               initial={false}
               animate={{
                 height: isAbout ? "12.8vh" : "19.3vh",
-                scale: isAbout ? 1.1 : 1
+                scale: isAbout ? 0.9 : 1
               }}
               style={{ width: "31.6vh", transformOrigin: "bottom left" }}
               transition={transitionConfig}
@@ -227,7 +227,7 @@ export default function HeroSection() {
 
         {/* ── About Left Text & Buttons ── */}
         <motion.div
-          className="absolute top-[20vh] left-[10%] w-full max-w-xl z-30"
+          className="absolute top-[14vh] left-[10%] w-full max-w-xl z-30"
           initial={false}
           animate={{
             opacity: isAbout ? 1 : 0,
@@ -236,17 +236,28 @@ export default function HeroSection() {
           transition={transitionConfig}
           style={{ pointerEvents: isAbout ? "auto" : "none" }}
         >
-          <div className="flex items-center gap-4">
-            <img src={mrImg} alt="Mridang" className="h-[120px] lg:h-[150px] w-auto object-contain" />
-            <h2 className="font-dorsa text-white text-[100px] lg:text-[140px] leading-[0.7] tracking-widest uppercase mt-4">INCOMING</h2>
+          <div className="flex items-end gap-2">
+            <img src={mrImg} alt="Mridang" className="h-[80px] lg:h-[110px] w-auto object-contain" />
+            <h2
+              className="font-dorsa text-white text-[64px] lg:text-[100px] leading-[0.7] tracking-widest uppercase mb-[-8px] lg:mb-[-12px]"
+              style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
+            >
+              INCOMING
+            </h2>
           </div>
-          <p className="mt-8 text-white/80 font-sans text-base lg:text-[18px] leading-[1.8] max-w-lg text-justify font-light">
+          <p
+            className="text-white/80 font-sans text-lg lg:text-[22px] leading-[1.8] max-w-lg text-justify font-medium"
+            style={{ marginTop: "40px" }}
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad
             minim veniam, quis nostrud exercitation laboris ut aliqui.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-6">
+          <div
+            className="flex flex-wrap items-center gap-6"
+            style={{ marginTop: "40px" }}
+          >
             <Button variant="explore">EXPLORE</Button>
             <Button variant="register">REGISTER</Button>
           </div>
