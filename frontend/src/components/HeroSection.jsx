@@ -13,15 +13,19 @@ const COUNTDOWN_UNITS = [
   { value: "12", label: "sec" },
 ];
 
-const COLLAGE_IMAGES = [
-  "https://images.unsplash.com/photo-1540039155732-6762e15bc9c4?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1470229722913-7c090be5c560?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1533174000259-01cb412144eb?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80"
+
+const COLLAGE_IMAGES_COL1 = [
+  "https://picsum.photos/seed/c1a/450/300", // 3:2
+  "https://picsum.photos/seed/c1b/450/450", // 1:1
+  "https://picsum.photos/seed/c1c/450/270", // 5:3
+  "https://picsum.photos/seed/c1d/315/315", // 1:1, narrower
+];
+
+const COLLAGE_IMAGES_COL2 = [
+  "https://picsum.photos/seed/c2a/450/338", // 4:3, pulled up
+  "https://picsum.photos/seed/c2b/450/375", // 6:5
+  "https://picsum.photos/seed/c2c/450/338", // 4:3, largest
+  "https://picsum.photos/seed/c2d/450/675", // 2:3, tallest portrait
 ];
 
 export default function HeroSection() {
@@ -263,42 +267,93 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* ── About Right Photos ── */}
-        <motion.div
-          className="absolute top-[15vh] right-[5%] w-[45%] h-[70vh] z-30 pointer-events-none"
-          initial={false}
-          animate={{
-            x: isAbout ? "0vw" : "100vw",
-            rotate: isAbout ? 0 : -20,
-            opacity: isAbout ? 1 : 0
-          }}
-          transition={transitionConfig}
-        >
-          <div className="w-full h-full grid grid-cols-4 grid-rows-4 gap-3 lg:gap-4 pointer-events-auto">
-            {COLLAGE_IMAGES.map((src, i) => {
-              let spanClass = "";
-              if (i === 0) spanClass = "col-span-2 row-span-2";
-              else if (i === 1) spanClass = "col-span-1 row-span-2";
-              else if (i === 2) spanClass = "col-span-1 row-span-1";
-              else if (i === 3) spanClass = "col-span-1 row-span-1";
-              else if (i === 4) spanClass = "col-span-1 row-span-2";
-              else if (i === 5) spanClass = "col-span-1 row-span-2";
-              else if (i === 6) spanClass = "col-span-2 row-span-1";
-              else if (i === 7) spanClass = "col-span-2 row-span-1";
+{/* ── About Right Photos ── */}
+<motion.div
+  className="absolute top-0 right-0 w-[42vw] h-screen z-30 pointer-events-none"
+  initial={false}
+  animate={{
+    x: isAbout ? "0vw" : "100vw",
+    rotate: isAbout ? 0 : -20,
+    opacity: isAbout ? 1 : 0,
+  }}
+  transition={transitionConfig}
+>
+  <div className="relative w-full h-full overflow-hidden pointer-events-auto">
 
-              return (
-                <motion.div
-                  key={i}
-                  className={`${spanClass} relative overflow-hidden bg-black/50 shadow-2xl rounded-sm ${i === 7 ? 'border-[3px] border-[#0099ff]' : ''}`}
-                  whileHover={{ filter: "grayscale(0%)", scale: 1.05, zIndex: 50 }}
-                  style={{ filter: "grayscale(100%)", opacity: 0.7 }}
-                >
-                  <img src={src} alt="" className="w-full h-full object-cover" />
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+    {/* ───────────── IMG 1 ───────────── */}
+    <div className="absolute top-0 right-0 w-[24.3%] h-[12%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL1[0]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 2 ───────────── */}
+    <div className="absolute left-[14.9%] top-[20.6%] w-[39%] h-[15.7%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL1[1]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 3 ───────────── */}
+    <div className="absolute right-0 top-[13.8%] w-[42.5%] h-[22.5%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL2[0]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 4 ───────────── */}
+    <div className="absolute left-0 top-[38.4%] w-[42.3%] h-[25.9%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL1[2]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 5 ───────────── */}
+    <div className="absolute right-0 top-[38.4%] w-[53.7%] h-[25.9%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL2[1]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 6 ───────────── */}
+    <div className="absolute left-[11.2%] top-[66.3%] w-[49.2%] h-[17.5%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL1[3]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 7 ───────────── */}
+    <div className="absolute right-0 top-[66.3%] w-[37%] h-[33.7%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL2[2]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+    {/* ───────────── IMG 8 ───────────── */}
+    <div className="absolute left-[35.1%] top-[86%] w-[25.3%] h-[14%] overflow-hidden">
+      <img
+        src={COLLAGE_IMAGES_COL2[3]}
+        alt=""
+        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+      />
+    </div>
+
+  </div>
+</motion.div>
 
       </div>
     </section>
