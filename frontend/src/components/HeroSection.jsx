@@ -421,7 +421,7 @@ export default function HeroSection() {
           }}
         >
           {/* Carousel Container */}
-          <div className="relative w-full flex flex-col items-center" style={{ marginTop: "8vh" }}>
+          <div className="relative w-full flex flex-col items-center" style={{ marginTop: "24vh" }}>
 
             {/* ── Image Carousel ── */}
             <div className="relative w-[75vw] max-w-[900px]" style={{ height: "46vh" }}>
