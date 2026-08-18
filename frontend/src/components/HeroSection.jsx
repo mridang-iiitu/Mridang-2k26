@@ -460,15 +460,20 @@ export default function HeroSection() {
               </div>
 
               {/* Left peek image */}
-              <div
+              <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
+                initial={false}
+                animate={{
+                  x: isStarNight ? "0%" : "40%",
+                  opacity: isStarNight ? 0.6 : 0,
+                }}
+                transition={{ ...transitionConfig, delay: isStarNight ? 1.5 : 0 }}
                 style={{
                   left: "0",
                   width: "30vw",
                   maxWidth: "360px",
                   height: "80%",
                   zIndex: 1,
-                  opacity: 0.6,
                 }}
               >
                 <img
@@ -476,18 +481,23 @@ export default function HeroSection() {
                   alt=""
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Right peek image */}
-              <div
+              <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
+                initial={false}
+                animate={{
+                  x: isStarNight ? "0%" : "-40%",
+                  opacity: isStarNight ? 0.6 : 0,
+                }}
+                transition={{ ...transitionConfig, delay: isStarNight ? 1.5 : 0 }}
                 style={{
                   right: "0",
                   width: "30vw",
                   maxWidth: "360px",
                   height: "80%",
                   zIndex: 1,
-                  opacity: 0.6,
                 }}
               >
                 <img
@@ -495,7 +505,7 @@ export default function HeroSection() {
                   alt=""
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Left Arrow */}
               <button
