@@ -1,0 +1,9 @@
+implementation_plan.md
+*/.DS_Store
+mr.png
+node_modules
+frontend/dist/
+.idea/
+
+# Local-only working context file (not team documentation)
+PROJECT_CONTEXT.md

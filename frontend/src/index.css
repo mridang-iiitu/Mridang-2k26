@@ -1,0 +1,1625 @@
+@import "tailwindcss";
+
+/* ============================================
+   MRIDANG — Global Styles & Design Tokens
+   ============================================ */
+
+:root {
+  /* ---- Color Palette ---- */
+  --color-bg: #0d0507;
+  --color-bg-hero: #1a0a10;
+  --color-bg-section: #120810;
+  --color-bg-section-alt: #0f060a;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(201, 168, 76, 0.15);
+  --color-border-hover: rgba(201, 168, 76, 0.35);
+
+  --color-accent-gold: #c9a84c;
+  --color-accent-gold-light: #e8d48b;
+  --color-accent-crimson: #8b3a4a;
+  --color-accent-rose: #c4566a;
+
+  --color-text-primary: #f5e6d3;
+  --color-text-secondary: #bfa48e;
+  --color-text-muted: #7a6055;
+  --color-text-heading: #fff5eb;
+
+  --color-gradient-start: #f5e6d3;
+  --color-gradient-mid: #c4566a;
+  --color-gradient-end: #6b2232;
+
+  --color-cta: #e8c547;
+  --color-cta-hover: #f5d96a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Spacing ---- */
+  --section-padding-y: clamp(4rem, 8vw, 8rem);
+  --section-padding-x: clamp(1.5rem, 5vw, 6rem);
+  --container-max: 1280px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   MRIDANG — Global Styles & Design Tokens
+   ============================================ */
+
+/* ─────────────────────────────────────────
+   Custom Fonts (Tailwind v4 theme extension)
+   ───────────────────────────────────────── */
+@theme {
+  --font-dorsa: "Dorsa", sans-serif;
+  --font-imbue: "Imbue", serif;
+  --font-sans: "Google Sans Flex", "Inter", "Segoe UI", sans-serif;
+
+  /* Brand colour tokens */
+  --color-coral: #FF9797;
+  --color-coral-light: #FFE0E0;
+  --color-burgundy: #280001;
+  --color-overlay: rgba(0, 0, 0, 0.45);
+}
+
+:root {
+  /* ---- Color Palette ---- */
+  --color-bg: #0d0507;
+  --color-bg-hero: #1a0a10;
+  --color-bg-section: #120810;
+  --color-bg-section-alt: #0f060a;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(201, 168, 76, 0.15);
+  --color-border-hover: rgba(201, 168, 76, 0.35);
+
+  --color-accent-gold: #c9a84c;
+  --color-accent-gold-light: #e8d48b;
+  --color-accent-crimson: #8b3a4a;
+  --color-accent-rose: #c4566a;
+
+  --color-text-primary: #f5e6d3;
+  --color-text-secondary: #bfa48e;
+  --color-text-muted: #7a6055;
+  --color-text-heading: #fff5eb;
+
+  --color-gradient-start: #f5e6d3;
+  --color-gradient-mid: #c4566a;
+  --color-gradient-end: #6b2232;
+
+  --color-cta: #e8c547;
+  --color-cta-hover: #f5d96a;
+
+  /* ---- Typography ---- */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ---- Spacing ---- */
+  --section-padding-y: clamp(4rem, 8vw, 8rem);
+  --section-padding-x: clamp(1.5rem, 5vw, 6rem);
+  --container-max: 1280px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─────────────────────────────────────────
+   Base Reset & Document Behaviour
+   ───────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─────────────────────────────────────────
+   Global Background
+   BG1.webp is fixed so it never scrolls —
+   all sections scroll over one shared image.
+   ───────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  color: #ffffff;
+  background-image: url("/src/assets/BG1.webp");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: #0a0000;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Deep crimson/maroon overlay — two layers for richness */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* Warm crimson gradient overlay */
+  background:
+    linear-gradient(180deg,
+      rgba(45, 0, 2, 0.80) 0%,
+      rgba(70, 4, 6, 0.80) 40%,
+      rgba(20, 0, 1, 0.95) 80%,
+      rgba(5, 0, 0, 1) 100%),
+    /* Extra red color wash */
+    rgba(80, 0, 5, 0.45);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All content above overlay */
+body>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   Hide Scrollbar Globally
+   ───────────────────────────────────────── */
+html,
+body {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ---- Utility ---- */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.section {
+  padding: var(--section-padding-y) 0;
+  position: relative;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.section-subtext {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* ─────────────────────────────────────────
+   Text Selection
+   ───────────────────────────────────────── */
+::selection {
+  background: var(--color-coral);
+  color: var(--color-burgundy);
+}
+
+/* ─────────────────────────────────────────
+   Hero Title — Viewport-Filling Typography
+   The MRIDANG text must fill roughly 75-80%
+   of the viewport height and stretch edge
+   to edge. We use a vh-based font-size to
+   keep it consistent across all ≥1024px
+   screens.
+   ───────────────────────────────────────── */
+.hero-title {
+  font-size: 72vh;
+  line-height: 1.0;
+  letter-spacing: 0em;
+  transform: scaleY(1.4) scaleX(1.6);
+  transform-origin: center center;
+  padding: 2.2vh 0;
+  display: block;
+}
+
+/* ─────────────────────────────────────────
+   Global Button Reset
+   Forces browsers (Chrome, Safari, Firefox)
+   to stop applying their own button styling
+   before our .btn-* classes take over.
+   ───────────────────────────────────────── */
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border-style: solid;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ─────────────────────────────────────────
+   MRIDANG Hero Text Gradient Utility
+   Usage: class="gradient-text"
+   ───────────────────────────────────────── */
+.gradient-text {
+  color: transparent;
+  background-image: linear-gradient(180deg, #FFFFFF 20%, #FF9797 40%, #280001 80%);
+  background-color: transparent;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* ─────────────────────────────────────────
+   Reveal Utility (for IntersectionObserver)
+   Components start hidden, gain .is-visible
+   ───────────────────────────────────────── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────
+   Hide native scrollbar on carousel tracks
+   ───────────────────────────────────────── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────
+   Gradient Ring — Figma "Rectangle 41"
+   1px border with a #FFFFFF -> #FF7C7C gradient.
+   CSS cannot put a gradient on the `border`
+   property, so the gradient is painted on a
+   pseudo-element and the interior is masked out,
+   leaving only the 1px ring. This keeps the
+   element's own background independent, which
+   matters here: the fill is #000000 at just 10%,
+   so a background-clip approach would let the
+   gradient bleed through the whole box.
+   ───────────────────────────────────────── */
+.gradient-ring {
+  position: relative;
+}
+
+.gradient-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  /* Default is the hero countdown's ring (Figma: #FFFFFF -> #FF7C7C).
+     Override --ring-gradient on the element for a different border. */
+  background: var(--ring-gradient, linear-gradient(180deg, #FFFFFF 0%, #FF7C7C 100%));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   Carousel Arrow Buttons
+   Semi-transparent circles with hover glow
+   for the Star Night photo carousel.
+   ───────────────────────────────────────── */
+.carousel-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.carousel-arrow:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.1);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* ─────────────────────────────────────────
+   View Event Button
+   Dark translucent base with #FFC300
+   flood-fill sweep on hover.
+   ───────────────────────────────────────── */
+.view-event-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 28px;
+  border-radius: 10px;
+  background: rgba(60, 0, 8, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  user-select: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    background-color 300ms ease-in-out,
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.view-event-btn:hover {
+  border-color: rgba(255, 200, 0, 0.5);
+}
+
+.view-event-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #FFC300;
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: transform 300ms ease-in-out;
+  pointer-events: none;
+}
+
+.view-event-btn:hover::before {
+  transform: scale(1);
+}
+
+.view-event-btn:hover {
+  color: #280001;
+}
+
+.view-event-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.view-event-btn:active {
+  transform: scale(0.96);
+}
+
+/* ─────────────────────────────────────────
+   @keyframes Definitions
+   ───────────────────────────────────────── */
+
+/* Hero heading entry — slides up from 40px */
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navbar slides down from above viewport */
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* "SCROLL TO EXPLORE" bouncing arrow */
+@keyframes ctaBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Radio.webp ambient float */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* MRIDANG gradient shimmer — moves gradient position */
+@keyframes gradientShift {
+  0% {
+    background-position: 50% 0%;
+  }
+
+  50% {
+    background-position: 50% 100%;
+  }
+
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+/* Mandala clockwise rotation */
+@keyframes rotateCW {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mandala counter-clockwise rotation */
+@keyframes rotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Mandala breathing opacity pulse */
+@keyframes mandalaBreath {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Clock digit flip — exit (old number folds away) */
+@keyframes flipOut {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+
+/* Clock digit flip — entry (new number unfolds in) */
+@keyframes flipIn {
+  0% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+/* Clock colon blink */
+@keyframes colonBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Page fade-in on load */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Animation Helper Classes
+   ───────────────────────────────────────── */
+.animate-slide-up {
+  animation: slideUpFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDownFadeIn 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-cta-bounce {
+  animation: ctaBounce 1.5s ease-in-out infinite;
+}
+
+.animate-rotate-cw {
+  animation: rotateCW linear infinite;
+}
+
+.animate-rotate-ccw {
+  animation: rotateCCW linear infinite;
+}
+
+.animate-mandala-breath {
+  animation: mandalaBreath 4s ease-in-out infinite;
+}
+
+.animate-colon-blink {
+  animation: colonBlink 1s ease-in-out infinite;
+}
+
+.animate-page-in {
+  animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+.animate-flip-out {
+  animation: flipOut 0.2s ease-in forwards;
+}
+
+.animate-flip-in {
+  animation: flipIn 0.2s ease-out forwards;
+}
+
+/* ─────────────────────────────────────────
+   Reduced Motion Accessibility
+   Disables all decorative animations for
+   users who prefer reduced motion. Functional
+   transitions (scroll) are kept intact.
+   ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .gradient-text {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Button System
+   All interactive states live here in plain
+   CSS so Tailwind's JIT scanner never misses
+   a dynamically-composed class name.
+   ───────────────────────────────────────── */
+
+/* ── Shared base ───────────────────────── */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  /* Strip ALL browser-native button defaults */
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+  background-image: none;
+  will-change: transform;
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn-base:hover,
+.btn-base:focus,
+.btn-base:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-base:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* ── Register variant ──────────────────────
+   Figma: 129 x 35, radius 10, fill #FFE5E5.
+   Hover swaps to variant 2 (#FFFFFF) over 300ms
+   ease-in-out — that colour change is the WHOLE
+   hover interaction. (The old skewed coral wipe
+   over a #FFD700 base predated these specs.)
+
+   Label: 93 x 25 at left 18 / top 5 inside the
+   button — i.e. 18px either side of the text and
+   perfectly centred vertically. Rather than
+   reproduce that as padding, the box is pinned to
+   129 x 35 and the label centred, which lands on
+   the same result and cannot drift if the fallback
+   font measures the word differently.
+
+   ⚠ Spec asks for Google Sans Flex 600. That family
+   is NOT loaded in index.html, so --font-sans falls
+   through to Inter. Load it to match Figma exactly.
+   ───────────────────────────────────────── */
+.btn-register {
+  position: relative;
+  overflow: hidden;
+  width: 129px;
+  height: 35px;
+  flex-shrink: 0;
+  padding: 0;
+  background-color: #FFE5E5;
+  color: #280001;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  /* spec: 100% */
+  letter-spacing: 0;
+  /* spec: 0% */
+  text-transform: uppercase;
+  transition:
+    background-color 300ms ease-in-out,
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-register:hover {
+  background-color: #FFFFFF;
+}
+
+/* Flood-fill ellipse — Figma: 147 x 66 at left -9 / top -13, #FFC300.
+   Those dimensions are not arbitrary padding: an ellipse inscribed in
+   that box is the smallest one that still clears all four corner arcs
+   of the 129 x 35 / radius-10 button, so the fill lands edge-to-edge
+   with nothing left showing in the corners. `overflow: hidden` above
+   crops the overhang back to the rounded rect.
+
+   It always wells up from the button's BOTTOM-LEFT corner, regardless
+   of where the pointer entered — a fixed origin, no JS involved.
+   transform-origin is measured from the ellipse's own top-left, and the
+   ellipse is inset -9 / -13 from the button, so the button's bottom-left
+   corner (0, 35) sits at (0 + 9, 35 + 13) = (9px, 48px) in its box. */
+.btn-register::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: -13px;
+  width: 147px;
+  height: 66px;
+  border-radius: 50%;
+  background: #FFC300;
+  transform: scale(0);
+  transform-origin: 9px 48px;
+  transition: transform 300ms ease-in-out;
+  pointer-events: none;
+}
+
+.btn-register:hover::before {
+  transform: scale(1);
+}
+
+/* Label rides above the flood. */
+.btn-register span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-register:active {
+  transform: scale(0.96);
+}
+
+/* ── Explore variant ────────────────────── */
+.btn-explore {
+  position: relative;
+  overflow: hidden;
+  width: 129px;
+  height: 35px;
+  flex-shrink: 0;
+  padding: 0;
+  background-color: transparent;
+  color: #FFE5E5;
+  border: 2px solid #FFE5E5;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  transition:
+    border-color 300ms ease-in-out,
+    color 300ms ease-in-out,
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-explore:hover {
+  color: #280001;
+  border-color: #FFC300;
+}
+
+.btn-explore::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: -13px;
+  width: 147px;
+  height: 66px;
+  border-radius: 50%;
+  background: #FFC300;
+  transform: scale(0);
+  transform-origin: 9px 48px;
+  transition: transform 300ms ease-in-out;
+  pointer-events: none;
+}
+
+.btn-explore:hover::before {
+  transform: scale(1);
+}
+
+.btn-explore span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-explore:active {
+  transform: scale(0.96);
+}
+
+/* ─────────────────────────────────────────
+   Navbar Custom Capsule & Links
+
+   Figma (1440 frame): 663 x 60 at top 27 / left 388,
+   radius 20, 1px gradient border #FFB1B1 -> #FF9F9F,
+   shadow 0 2px 7.8px #00000066, no fill.
+
+   Two things the raw numbers encode:
+
+   1. HORIZONTAL — the bar is 1301 wide starting at
+      left 70, so the pill leaves 318 to its left and
+      320 to its right. That is "centred", not
+      "positioned at 388". The side groups in Navbar.jsx
+      are flex-1 so the centring survives any width.
+
+   2. VERTICAL — the bar spans y 15..87, the pill
+      27..87. It is flush with the bar's BOTTOM edge,
+      12px down from the top, i.e. NOT optically
+      centred. Hence align-self: flex-end. Switch to
+      center if the design ever says otherwise.
+
+   `display` is deliberately not set here — Navbar.jsx
+   owns it via `hidden lg:flex`. Unlayered CSS beats
+   Tailwind's layered utilities, so a `display: flex`
+   here would defeat `hidden` and leak the pill onto
+   mobile.
+   ───────────────────────────────────────── */
+.nav-menu-capsule {
+  --ring-gradient: linear-gradient(180deg, #FFB1B1 0%, #FF9F9F 100%);
+  align-items: center;
+  /* First tab lands 28px in (Figma left 416 - 388), and the
+     leftover width splits evenly between the five tabs — so the
+     row fills exactly 663 without hardcoding per-word widths. */
+  justify-content: space-between;
+  flex: 0 1 663px;
+  align-self: flex-end;
+  height: 60px;
+  padding: 0 28px;
+  border-radius: 20px;
+  background-color: transparent;
+  box-shadow: 0 2px 7.8px 0 rgba(0, 0, 0, 0.4);
+  /* #00000066 */
+  transition: background-color 300ms ease, backdrop-filter 300ms ease;
+}
+
+.nav-menu-capsule.scrolled-capsule {
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-menu-link {
+  font-family: var(--font-sans);
+  /* Figma tab box: 83 x 25 for "Schedule". 25 is the line box;
+     18px + 0.02em tracking is what measures ~83 wide in Inter. */
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.nav-menu-link:hover {
+  color: #FFD700;
+  transform: scale(1.05);
+}
+
+.nav-menu-link:active {
+  transform: scale(0.95);
+}
+
+/* ── Contact variant ───────────────────── */
+.btn-contact {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+}
+
+.btn-contact:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 14px rgba(255, 151, 151, 0.55);
+  transform: scale(1.03);
+}
+
+.btn-contact:active {
+  transform: scale(0.96);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── CTA variant ───────────────────────── */
+.btn-cta {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+}
+
+.btn-cta:hover {
+  background-color: #ffffff;
+  color: #280001;
+  border-color: #ffffff;
+  transform: scale(1.03);
+}
+
+.btn-cta:active {
+  transform: scale(0.95);
+}
+
+
+/* ============================================
+   Component Styles Consolidated
+   ============================================ */
+
+/* ---- About.css ---- */
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about__text p {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.about__highlight {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.about__stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-accent-gold);
+  line-height: 1;
+}
+
+.about__stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+}
+
+.about__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about__image-frame {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  aspect-ratio: 4/3;
+  width: 100%;
+  background: var(--color-surface);
+}
+
+.about__image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__image-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.15), transparent 70%);
+  border-radius: 50%;
+  top: -50px;
+  right: -50px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .about__content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about__highlight {
+    gap: 2rem;
+  }
+
+  .about__stat-number {
+    font-size: 2rem;
+  }
+}
+
+/* ---- Countdown.css ---- */
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.2rem;
+  background: rgba(13, 5, 7, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.countdown__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 44px;
+}
+
+.countdown__number {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown__label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.countdown__sep {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  padding: 0 0.15rem;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+}
+
+/* ---- Sponsors.css ---- */
+.sponsors {
+  position: relative;
+  overflow: hidden;
+}
+
+.sponsors__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sponsors__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+  min-height: 120px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.sponsors__card:hover {
+  border-color: var(--color-border-hover);
+  transform: scale(1.03);
+}
+
+.sponsors__card-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.sponsors__tier {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sponsors__tier-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-accent-gold);
+  position: relative;
+  display: inline-block;
+}
+
+.sponsors__tier-label::before,
+.sponsors__tier-label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.sponsors__tier-label::before {
+  right: calc(100% + 1rem);
+}
+
+.sponsors__tier-label::after {
+  left: calc(100% + 1rem);
+}
+
+@media (max-width: 600px) {
+  .sponsors__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- MandalaDecor.css ---- */
+.mandala-float {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+.mandala-float__img {
+  width: 100%;
+  height: auto;
+  opacity: 0.06;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.1));
+}
+
+/* ---- Schedule.css ---- */
+.schedule {
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.schedule__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.schedule__card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+.schedule__card-day {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.schedule__card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: 0.5rem;
+}
+
+.schedule__card-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.schedule__card-time {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.schedule__card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+      var(--color-accent-gold),
+      var(--color-accent-crimson));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.schedule__card:hover .schedule__card-accent {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .schedule__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Teams.css ---- */
+.teams {
+  position: relative;
+  overflow: hidden;
+}
+
+.teams__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.teams__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.teams__card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-4px);
+}
+
+.teams__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(135deg,
+      var(--color-accent-crimson),
+      var(--color-accent-gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.teams__name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  margin-bottom: 0.3rem;
+}
+
+.teams__role {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent-gold);
+  margin-bottom: 0.75rem;
+}
+
+.teams__dept {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 600px) {
+  .teams__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .teams__avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ---- Contact.css ---- */
+.contact {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact__info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.contact__info-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent-gold);
+}
+
+.contact__info-value {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.contact__info-value a {
+  transition: color 0.25s ease;
+}
+
+.contact__info-value a:hover {
+  color: var(--color-accent-gold);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact__field label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+}
+
+.contact__field input,
+.contact__field textarea {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  transition: border-color 0.3s ease;
+  outline: none;
+  resize: vertical;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  border-color: var(--color-accent-gold);
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.contact__submit {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(135deg,
+      var(--color-accent-gold),
+      var(--color-accent-crimson));
+  color: var(--color-text-heading);
+  border-radius: var(--radius-md);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.contact__submit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .contact__content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ---- Footer.css ---- */
+.footer {
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 3rem 0 2rem;
+}
+
+.footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer__logo-img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.footer__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  letter-spacing: 0.05em;
+}
+
+.footer__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer__link {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  transition: color 0.25s ease;
+}
+
+.footer__link:hover {
+  color: var(--color-text-primary);
+}
+
+.footer__copy {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 600px) {
+  .footer__content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+}
+
+/* ---- App.css ---- */
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+
+.mandala-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+  width: clamp(200px, 30vw, 500px);
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.15));
+}
+
+.mandala-decoration--left {
+  left: -8%;
+}
+
+.mandala-decoration--right {
+  right: -8%;
+}
