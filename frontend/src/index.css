@@ -1523,103 +1523,772 @@ button {
   }
 }
 
-/* ---- Footer.css ---- */
+/* =========================================================
+   FOOTER
+========================================================= */
+
 .footer {
-  background: var(--color-bg);
-  border-top: 1px solid var(--color-border);
-  padding: 3rem 0 2rem;
+  position: relative;
+  overflow: visible;
+
+  /*
+    Gradient background:
+    bright red on the left
+    gradually becoming dark red/black on the right
+  */
+  background:
+    radial-gradient(
+      circle at 12% 50%,
+      rgba(145, 0, 0, 0.95) 0%,
+      rgba(105, 0, 0, 0.82) 28%,
+      rgba(65, 0, 0, 0.72) 52%,
+      transparent 78%
+    ),
+    linear-gradient(
+      90deg,
+      #700000 0%,
+      #450000 38%,
+      #280000 68%,
+      #160000 100%
+    );
+
+  padding: 3.5rem 0 1.5rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  isolation: isolate;
 }
 
-.footer__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.footer__container {
+  position: relative;
+  z-index: 5;
 }
+
+
+/* =========================================================
+   ROTATING MANdala
+========================================================= */
+
+.footer__mandala {
+  position: absolute;
+
+  /*
+    Large enough to extend outside the footer.
+  */
+  width: 520px;
+  height: 520px;
+
+  /*
+    Position on the right side behind countdown.
+  */
+  right: -125px;
+  top: -115px;
+
+  object-fit: contain;
+
+  /*
+    Visibility
+  */
+  opacity: 0.30;
+
+  pointer-events: none;
+
+  /*
+    Keep it behind the countdown/content.
+  */
+  z-index: 1;
+
+  /*
+    Rotate continuously in the opposite direction.
+  */
+  animation: footerMandalaRotate 50s linear infinite reverse;
+
+  transform-origin: center center;
+
+  will-change: transform;
+}
+
+
+/* =========================================================
+   MANDALA ROTATION
+========================================================= */
+
+@keyframes footerMandalaRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.footer__content {
+  position: relative;
+  z-index: 5;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(390px, 2.35fr)
+    minmax(130px, 0.8fr)
+    minmax(200px, 1fr)
+    minmax(300px, 1.35fr);
+
+  align-items: center;
+
+  gap: 2.5rem;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
 
 .footer__brand {
   display: flex;
+
   align-items: center;
-  gap: 0.75rem;
+
+  gap: 1.25rem;
+
+  min-width: 0;
 }
 
-.footer__logo-img {
-  height: 30px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(1.1);
-}
 
-.footer__title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-text-heading);
-  letter-spacing: 0.05em;
-}
+/* =========================================================
+   MERGED LOGOS
+========================================================= */
 
-.footer__links {
-  display: flex;
-  gap: 2rem;
-}
-
-.footer__link {
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.05em;
-  transition: color 0.25s ease;
-}
-
-.footer__link:hover {
-  color: var(--color-text-primary);
-}
-
-.footer__copy {
-  width: 100%;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-@media (max-width: 600px) {
-  .footer__content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer__links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.25rem;
-  }
-}
-
-/* ---- App.css ---- */
-.app {
-  min-height: 100vh;
+.footer__logo-group {
   position: relative;
+
+  width: 165px;
+  height: 135px;
+
+  flex-shrink: 0;
 }
 
-.mandala-decoration {
+
+/* IIIT logo */
+.footer__iiit-logo {
   position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.08;
-  width: clamp(200px, 30vw, 500px);
-  height: auto;
-  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.15));
+
+  width: 125px;
+  height: 125px;
+
+  left: 0;
+  top: 5px;
+
+  object-fit: contain;
+
+  z-index: 1;
 }
 
-.mandala-decoration--left {
-  left: -8%;
+
+/* Mridang logo */
+.footer__mridang-logo {
+  position: absolute;
+
+  width: 135px;
+  height: 135px;
+
+  left: 42px;
+  top: 0;
+
+  object-fit: contain;
+
+  z-index: 2;
 }
 
-.mandala-decoration--right {
-  right: -8%;
+
+/* =========================================================
+   INSTITUTE INFORMATION
+========================================================= */
+
+.footer__info {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding-top: 0.1rem;
+}
+
+
+/* Institute name */
+.footer__info h3 {
+  margin: 0 0 1.15rem;
+
+  font-family: var(--font-display);
+
+  font-size: 1rem;
+
+  line-height: 1.08;
+
+  font-weight: 600;
+
+  color: var(--color-text-heading);
+}
+
+
+/* Contacts heading */
+.footer__info h4 {
+  margin: 0 0 0.4rem;
+
+  font-family: var(--font-heading);
+
+  font-size: 0.85rem;
+
+  line-height: 1;
+
+  font-weight: 600;
+
+  color: var(--color-text-heading);
+}
+
+
+/* Contact links */
+.footer__info a {
+  display: block;
+
+  width: fit-content;
+
+  margin-bottom: 0.3rem;
+
+  font-size: 0.75rem;
+
+  line-height: 1.3;
+
+  color: var(--color-text-muted);
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer__info a:hover {
+  color: var(--color-text-primary);
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   NAVIGATION / SOCIAL SECTIONS
+========================================================= */
+
+.footer__section {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  align-self: center;
+
+  min-width: 0;
+}
+
+
+/* Section headings */
+.footer__section h4 {
+  margin: 0 0 1rem;
+
+  font-family: var(--font-heading);
+
+  font-size: 0.9rem;
+
+  line-height: 1;
+
+  font-weight: 600;
+
+  color: var(--color-text-heading);
+}
+
+
+/* Navigation links */
+.footer__section > a:not(.footer__social) {
+  display: block;
+
+  width: fit-content;
+
+  margin-bottom: 0.55rem;
+
+  font-size: 0.75rem;
+
+  line-height: 1.3;
+
+  color: var(--color-text-muted);
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer__section > a:not(.footer__social):hover {
+  color: var(--color-text-primary);
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   SOCIAL LINKS
+========================================================= */
+
+.footer__social {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.65rem;
+
+  min-height: 20px;
+
+  margin: 0 0 0.65rem;
+
+  font-size: 0.75rem;
+
+  line-height: 1.2;
+
+  color: var(--color-text-muted);
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Hover */
+.footer__social:hover {
+  color: var(--color-text-primary);
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   SOCIAL SVG ICONS
+========================================================= */
+
+.footer__social-icon {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  display: block;
+
+  color: var(--color-text-heading);
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Icon hover */
+.footer__social:hover .footer__social-icon {
+  color: var(--color-text-primary);
+
+  transform: scale(1.08);
+}
+
+
+/* =========================================================
+   COUNTDOWN WRAPPER
+========================================================= */
+
+.footer__timer-wrapper {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 150px;
+}
+
+
+/*
+   Make sure the existing Countdown
+   remains above the mandala.
+*/
+
+.footer__timer-wrapper > * {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   COUNTDOWN OVERRIDES
+   These work with your existing Countdown.jsx
+========================================================= */
+
+.footer .countdown {
+  position: relative;
+
+  z-index: 20;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 350px;
+
+  padding: 1rem 1.4rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  border-radius: 14px;
+
+  background: rgba(15, 0, 0, 0.72);
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.25),
+    inset 0 0 20px rgba(0, 0, 0, 0.15);
+
+  backdrop-filter: blur(3px);
+}
+
+
+/* Countdown number */
+.footer .countdown__number {
+  font-family: var(--font-heading);
+
+  font-size: 2rem;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  color: var(--color-text-heading);
+}
+
+
+/* Countdown labels */
+.footer .countdown__label {
+  display: block;
+
+  margin-top: 0.3rem;
+
+  font-size: 0.65rem;
+
+  line-height: 1;
+
+  text-align: center;
+
+  color: var(--color-text-muted);
+
+  text-transform: lowercase;
+}
+
+
+/* Countdown separator */
+.footer .countdown__sep {
+  margin: 0 0.25rem;
+
+  font-size: 1.8rem;
+
+  line-height: 1;
+
+  color: var(--color-text-heading);
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.footer__bottom {
+  position: relative;
+
+  z-index: 5;
+
+  margin-top: 2rem;
+
+  padding-top: 1rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+
+/* Copyright text */
+.footer__bottom p {
+  margin: 0;
+
+  font-size: 0.7rem;
+
+  line-height: 1.4;
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .footer__content {
+    grid-template-columns:
+      minmax(330px, 2fr)
+      minmax(120px, 0.8fr)
+      minmax(180px, 1fr);
+
+    gap: 2.5rem;
+  }
+
+  .footer__timer-wrapper {
+    grid-column: 3;
+
+    grid-row: 1;
+  }
+
+  .footer__mandala {
+    width: 480px;
+    height: 480px;
+
+    right: -150px;
+    top: -100px;
+  }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .footer__content {
+    grid-template-columns:
+      1.8fr
+      1fr
+      1fr;
+
+    gap: 2rem;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer__timer-wrapper {
+    grid-column: 3;
+
+    grid-row: 2;
+  }
+
+  .footer__mandala {
+    width: 450px;
+    height: 450px;
+
+    right: -170px;
+    top: -80px;
+
+    opacity: 0.25;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .footer {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+
+  .footer__content {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 2.5rem 2rem;
+  }
+
+
+  .footer__brand {
+    grid-column: 1 / -1;
+
+    align-items: center;
+  }
+
+
+  .footer__section {
+    align-self: start;
+  }
+
+
+  .footer__timer-wrapper {
+    grid-column: 1 / -1;
+
+    grid-row: auto;
+
+    justify-content: flex-start;
+
+    min-height: 0;
+
+    margin-top: 0.5rem;
+  }
+
+
+  .footer .countdown {
+    min-width: 0;
+
+    width: 100%;
+
+    max-width: 360px;
+  }
+
+
+  .footer__mandala {
+    width: 430px;
+    height: 430px;
+
+    right: -190px;
+    top: -80px;
+
+    opacity: 0.22;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .footer__content {
+    grid-template-columns: 1fr;
+  }
+
+
+  .footer__brand {
+    grid-column: 1;
+
+    align-items: flex-start;
+  }
+
+
+  .footer__section {
+    grid-column: 1;
+  }
+
+
+  .footer__timer-wrapper {
+    grid-column: 1;
+
+    justify-content: flex-start;
+  }
+
+
+  .footer .countdown {
+    width: 100%;
+
+    max-width: 350px;
+
+    padding: 0.85rem 0.75rem;
+  }
+
+
+  .footer .countdown__number {
+    font-size: 1.5rem;
+  }
+
+
+  .footer .countdown__sep {
+    font-size: 1.4rem;
+
+    margin: 0 0.15rem;
+  }
+
+
+  .footer__mandala {
+    width: 360px;
+    height: 360px;
+
+    right: -170px;
+    top: -60px;
+
+    opacity: 0.20;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .footer__brand {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .footer__logo-group {
+    width: 150px;
+  }
+
+
+  .footer .countdown__number {
+    font-size: 1.25rem;
+  }
+
+
+  .footer .countdown__label {
+    font-size: 0.55rem;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .footer__mandala {
+    animation: none;
+  }
+
+  .footer__social,
+  .footer__social-icon,
+  .footer__info a,
+  .footer__section > a:not(.footer__social) {
+    transition: none;
+  }
 }
