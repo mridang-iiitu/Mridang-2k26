@@ -465,6 +465,34 @@ button {
 }
 
 /* ─────────────────────────────────────────
+   Merchandise Thumbnails
+   Small product thumbnails with active ring.
+   ───────────────────────────────────────── */
+.merch-thumb {
+  width: 60px;
+  height: 60px;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.merch-thumb:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.08);
+}
+
+.merch-thumb-active {
+  border-color: rgba(255, 150, 150, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(255, 150, 150, 0.2);
+}
+
+/* ─────────────────────────────────────────
    @keyframes Definitions
    ───────────────────────────────────────── */
 
