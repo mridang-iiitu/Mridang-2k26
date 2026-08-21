@@ -195,7 +195,7 @@ export default function HeroSection() {
           transition={fastTransition}
         >
           <motion.p
-            className="absolute left-8 lg:left-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            className="absolute left-22 lg:left-28 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.02em] text-white/80 py-1"
             style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
             initial={false}
             animate={{ x: isAbout ? "-50vw" : "0vw" }}
@@ -204,7 +204,7 @@ export default function HeroSection() {
             IIITU PRESENTS
           </motion.p>
           <motion.p
-            className="absolute right-8 lg:right-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            className="absolute right-10 lg:right-29 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.02em] text-white/80 py-1"
             style={{ transform: "scaleY(1.35)", transformOrigin: "bottom right" }}
             initial={false}
             animate={{ x: isAbout ? "50vw" : "0vw" }}
