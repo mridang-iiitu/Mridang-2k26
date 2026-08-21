@@ -506,7 +506,7 @@ export default function HeroSection() {
           initial={false}
           animate={{
             opacity: starNightOnly ? 1 : 0,
-            scale: isStarNight ? 1 : 0.5,
+            scale: isStarNight ? 1 : 0.1,
             x: isMerch ? "-100vw" : "0vw",
           }}
           transition={transitionConfig}
@@ -539,9 +539,9 @@ export default function HeroSection() {
                       src={STAR_NIGHT_IMAGES[carouselIndex]}
                       alt={`Star Night ${carouselIndex + 1}`}
                       className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale"
-                      initial={{ opacity: 0, x: 60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60 }}
+                      initial={{ opacity: 0, x: 60, scale: 0.3 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -60, scale: 0.3 }}
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                     />
                   </AnimatePresence>
