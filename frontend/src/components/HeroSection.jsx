@@ -349,77 +349,149 @@ export default function HeroSection() {
         >
           <div className="relative w-full h-full overflow-hidden pointer-events-auto">
 
-            {/* ───────────── IMG 1 ───────────── */}
-            <div className="absolute top-0 right-0 w-[24.3%] h-[12%] overflow-hidden">
+            {/* ───────────── IMG 1 (BACK LAYER - Right side) ───────────── */}
+            <motion.div 
+              className="absolute top-0 right-0 w-[24.3%] h-[12%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.3 : 0 }}
+            >
               <img
                 src={COLLAGE_IMAGES_COL1[0]}
                 alt=""
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
               />
-            </div>
+            </motion.div>
 
-            {/* ───────────── IMG 2 ───────────── */}
-            <div className="absolute left-[14.9%] top-[20.6%] w-[39%] h-[15.7%] overflow-hidden">
-              <img
-                src={COLLAGE_IMAGES_COL1[1]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-
-            {/* ───────────── IMG 3 ───────────── */}
-            <div className="absolute right-0 top-[13.8%] w-[42.5%] h-[22.5%] overflow-hidden">
+            {/* ───────────── IMG 3 (BACK LAYER - Right side) ───────────── */}
+            <motion.div 
+              className="absolute right-0 top-[13.8%] w-[42.5%] h-[22.5%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.4 : 0 }}
+            >
               <img
                 src={COLLAGE_IMAGES_COL2[0]}
                 alt=""
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
               />
-            </div>
+            </motion.div>
 
-            {/* ───────────── IMG 4 ───────────── */}
-            <div className="absolute left-0 top-[38.4%] w-[42.3%] h-[25.9%] overflow-hidden">
-              <img
-                src={COLLAGE_IMAGES_COL1[2]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-
-            {/* ───────────── IMG 5 ───────────── */}
-            <div className="absolute right-0 top-[38.4%] w-[53.7%] h-[25.9%] overflow-hidden">
+            {/* ───────────── IMG 5 (BACK LAYER - Right side) ───────────── */}
+            <motion.div 
+              className="absolute right-0 top-[38.4%] w-[53.7%] h-[25.9%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.5 : 0 }}
+            >
               <img
                 src={COLLAGE_IMAGES_COL2[1]}
                 alt=""
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
               />
-            </div>
+            </motion.div>
 
-            {/* ───────────── IMG 6 ───────────── */}
-            <div className="absolute left-[11.2%] top-[66.3%] w-[49.2%] h-[17.5%] overflow-hidden">
-              <img
-                src={COLLAGE_IMAGES_COL1[3]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-
-            {/* ───────────── IMG 7 ───────────── */}
-            <div className="absolute right-0 top-[66.3%] w-[37%] h-[33.7%] overflow-hidden">
+            {/* ───────────── IMG 7 (BACK LAYER - Right side) ───────────── */}
+            <motion.div 
+              className="absolute right-0 top-[66.3%] w-[37%] h-[33.7%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.6 : 0 }}
+            >
               <img
                 src={COLLAGE_IMAGES_COL2[2]}
                 alt=""
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
               />
-            </div>
+            </motion.div>
 
-            {/* ───────────── IMG 8 ───────────── */}
-            <div className="absolute left-[35.1%] top-[86%] w-[25.3%] h-[14%] overflow-hidden">
+            {/* ───────────── IMG 2 (FRONT LAYER - Left side, overlaps) ───────────── */}
+            <motion.div 
+              className="absolute left-[14.9%] top-[20.6%] w-[39%] h-[15.7%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.9 : 0 }}
+            >
+              <img
+                src={COLLAGE_IMAGES_COL1[1]}
+                alt=""
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </motion.div>
+
+            {/* ───────────── IMG 4 (FRONT LAYER - Left side, overlaps) ───────────── */}
+            <motion.div 
+              className="absolute left-0 top-[38.4%] w-[42.3%] h-[25.9%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.0 : 0 }}
+            >
+              <img
+                src={COLLAGE_IMAGES_COL1[2]}
+                alt=""
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </motion.div>
+
+            {/* ───────────── IMG 6 (FRONT LAYER - Left side, overlaps) ───────────── */}
+            <motion.div 
+              className="absolute left-[11.2%] top-[66.3%] w-[49.2%] h-[17.5%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.1 : 0 }}
+            >
+              <img
+                src={COLLAGE_IMAGES_COL1[3]}
+                alt=""
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </motion.div>
+
+            {/* ───────────── IMG 8 (FRONT LAYER - Left side, overlaps) ───────────── */}
+            <motion.div 
+              className="absolute left-[35.1%] top-[86%] w-[25.3%] h-[14%] overflow-hidden"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              animate={{ 
+                opacity: aboutOnly ? 1 : 0, 
+                x: aboutOnly ? 0 : 100,
+                y: aboutOnly ? 0 : 50
+              }}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.2 : 0 }}
+            >
               <img
                 src={COLLAGE_IMAGES_COL2[3]}
                 alt=""
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
               />
-            </div>
+            </motion.div>
 
           </div>
         </motion.div>
