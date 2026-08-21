@@ -4,6 +4,10 @@ import radioImg from "../assets/Radio.webp";
 import radioControl from "../assets/radio-control.webp";
 import mandala from "../assets/mandala.svg";
 import mrImg from "../assets/mr.webp";
+import jacketImg from "../assets/jacket.png";
+import jacket2Img from "../assets/jacket2.png";
+import bandanaImg from "../assets/bandana.png";
+import bandana2Img from "../assets/bandana2.png";
 import { Button } from "./ui/Button";
 
 const COUNTDOWN_UNITS = [
@@ -39,12 +43,22 @@ const STAR_NIGHT_IMAGES = [
   "https://picsum.photos/seed/sn5/800/500",
 ];
 
+/* ── Merchandise Products ── */
+const MERCH_PRODUCTS = [
+  { src: jacketImg, label: "Jacket" },
+  { src: jacket2Img, label: "Jacket 2" },
+  { src: bandanaImg, label: "Bandana" },
+  { src: bandana2Img, label: "Bandana 2" },
+];
+
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
   const [isAbout, setIsAbout] = useState(false);
   const [isStarNight, setIsStarNight] = useState(false);
+  const [isMerch, setIsMerch] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [merchProductIndex, setMerchProductIndex] = useState(0);
   const autoPlayRef = useRef(null);
 
   useEffect(() => {
@@ -58,14 +72,21 @@ export default function HeroSection() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Three-state system: Hero → About → Star Night
-    if (latest > 0.55) {
+    // Four-state system: Hero → About → Star Night → Merch
+    if (latest > 0.72) {
+      if (!isMerch) setIsMerch(true);
+      if (!isStarNight) setIsStarNight(true);
+      if (!isAbout) setIsAbout(true);
+    } else if (latest > 0.42) {
+      if (isMerch) setIsMerch(false);
       if (!isStarNight) setIsStarNight(true);
       if (!isAbout) setIsAbout(true);
     } else if (latest > 0.15) {
+      if (isMerch) setIsMerch(false);
       if (isStarNight) setIsStarNight(false);
       if (!isAbout) setIsAbout(true);
     } else {
+      if (isMerch) setIsMerch(false);
       if (isStarNight) setIsStarNight(false);
       if (isAbout) setIsAbout(false);
     }
@@ -80,24 +101,25 @@ export default function HeroSection() {
     setCarouselIndex((prev) => (prev - 1 + STAR_NIGHT_IMAGES.length) % STAR_NIGHT_IMAGES.length);
   }, []);
 
-  /* Auto-advance carousel every 4s when Star Night is active */
+  /* Auto-advance carousel every 8s when Star Night is active */
   useEffect(() => {
-    if (isStarNight) {
+    if (isStarNight && !isMerch) {
       autoPlayRef.current = setInterval(nextSlide, 8000);
     } else {
       clearInterval(autoPlayRef.current);
     }
     return () => clearInterval(autoPlayRef.current);
-  }, [isStarNight, nextSlide]);
+  }, [isStarNight, isMerch, nextSlide]);
 
   const transitionConfig = { duration: 4, ease: [0.16, 1, 0.3, 1] };
   const fastTransition = { duration: 2, ease: "easeOut" };
 
-  /* Helper: determine the About layer's animate state based on both flags */
+  /* Helpers */
   const aboutOnly = isAbout && !isStarNight;
+  const starNightOnly = isStarNight && !isMerch;
 
   return (
-    <section ref={containerRef} id="hero" className="relative w-full h-[250vh]">
+    <section ref={containerRef} id="hero" className="relative w-full h-[350vh]">
 
       {/* ── STICKY CONTAINER ── */}
       <div className="sticky top-0 w-full h-screen overflow-hidden">
@@ -216,8 +238,8 @@ export default function HeroSection() {
           className="absolute z-[40]"
           initial={false}
           animate={{
-            left: isAbout ? "10%" : "50%",
-            x: isAbout ? "0%" : "-50%",
+            left: isMerch ? "50%" : (isAbout ? "10%" : "50%"),
+            x: isMerch ? "-50%" : (isAbout ? "0%" : "-50%"),
             bottom: "2vh"
           }}
           transition={transitionConfig}
@@ -483,12 +505,13 @@ export default function HeroSection() {
           className="absolute inset-0 z-[35] flex flex-col items-center justify-start pointer-events-none"
           initial={false}
           animate={{
-            opacity: isStarNight ? 1 : 0,
+            opacity: starNightOnly ? 1 : 0,
             scale: isStarNight ? 1 : 0.5,
+            x: isMerch ? "-100vw" : "0vw",
           }}
           transition={transitionConfig}
           style={{
-            pointerEvents: isStarNight ? "auto" : "none",
+            pointerEvents: starNightOnly ? "auto" : "none",
             transformOrigin: "center center",
           }}
         >
@@ -532,15 +555,20 @@ export default function HeroSection() {
               </div>
 
               {/* Left peek image */}
-              <div
+              <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
+                initial={false}
+                animate={{
+                  x: starNightOnly ? "0%" : "40%",
+                  opacity: starNightOnly ? 0.6 : 0,
+                }}
+                transition={{ ...transitionConfig, delay: starNightOnly ? 1.5 : 0 }}
                 style={{
                   left: "0",
                   width: "30vw",
                   maxWidth: "360px",
                   height: "80%",
                   zIndex: 1,
-                  opacity: 0.6,
                 }}
               >
                 <img
@@ -548,18 +576,23 @@ export default function HeroSection() {
                   alt=""
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Right peek image */}
-              <div
+              <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
+                initial={false}
+                animate={{
+                  x: starNightOnly ? "0%" : "-40%",
+                  opacity: starNightOnly ? 0.6 : 0,
+                }}
+                transition={{ ...transitionConfig, delay: starNightOnly ? 1.5 : 0 }}
                 style={{
                   right: "0",
                   width: "30vw",
                   maxWidth: "360px",
                   height: "80%",
                   zIndex: 1,
-                  opacity: 0.6,
                 }}
               >
                 <img
@@ -567,7 +600,7 @@ export default function HeroSection() {
                   alt=""
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Left Arrow */}
               <button
@@ -625,11 +658,101 @@ export default function HeroSection() {
           <motion.div
             className="absolute bottom-[3vh] right-[5%] z-[40]"
             initial={false}
-            animate={{ opacity: isStarNight ? 1 : 0 }}
+            animate={{ opacity: starNightOnly ? 1 : 0 }}
             transition={fastTransition}
           >
             <Button variant="explore">EXPLORE</Button>
           </motion.div>
+        </motion.div>
+
+
+        {/* ==============================================================
+            MERCHANDISE LAYER
+            ============================================================== */}
+
+        <motion.div
+          className="absolute inset-0 z-[36] flex items-center pointer-events-none"
+          initial={false}
+          animate={{
+            x: isMerch ? "0vw" : "100vw",
+            opacity: isMerch ? 1 : 0,
+          }}
+          transition={transitionConfig}
+          style={{ pointerEvents: isMerch ? "auto" : "none" }}
+        >
+          <div className="w-full flex items-center justify-center gap-[6vw] px-[8%]" style={{ marginTop: "-4vh" }}>
+
+            {/* ── Left: Product Image + Thumbnails ── */}
+            <div className="flex flex-col items-center shrink-0">
+              {/* Main product image */}
+              <div className="relative" style={{ width: "clamp(260px, 30vw, 400px)", height: "clamp(280px, 38vh, 440px)" }}>
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={merchProductIndex}
+                    src={MERCH_PRODUCTS[merchProductIndex].src}
+                    alt={MERCH_PRODUCTS[merchProductIndex].label}
+                    className="w-full h-full object-contain select-none drop-shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                    draggable="false"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                  />
+                </AnimatePresence>
+              </div>
+
+              {/* Thumbnails */}
+              <div className="flex gap-3 mt-4">
+                {MERCH_PRODUCTS.map((product, i) => (
+                  <button
+                    key={product.label}
+                    onClick={() => setMerchProductIndex(i)}
+                    className={`merch-thumb ${i === merchProductIndex ? "merch-thumb-active" : ""}`}
+                  >
+                    <img
+                      src={product.src}
+                      alt={product.label}
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Right: Title + Description + CTA ── */}
+            <div className="flex flex-col max-w-lg">
+              {/* Title row */}
+              <div className="flex items-center gap-3 mb-6">
+                <img src={mrImg} alt="Mridang" className="h-[50px] lg:h-[65px] w-auto object-contain" />
+                <h2
+                  className="font-dorsa text-white uppercase tracking-widest leading-[0.85]"
+                  style={{
+                    fontSize: "clamp(48px, 7vw, 90px)",
+                    transform: "scaleY(1.3)",
+                    transformOrigin: "bottom left",
+                  }}
+                >
+                  MERCHANDISE
+                </h2>
+              </div>
+
+              {/* Description */}
+              <p
+                className="text-white/80 font-sans text-justify leading-[1.8] font-medium"
+                style={{ fontSize: "clamp(15px, 1.5vw, 20px)" }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea
+              </p>
+
+              {/* Shop Now button */}
+              <div className="mt-8">
+                <Button variant="explore">Shop Now</Button>
+              </div>
+            </div>
+
+          </div>
         </motion.div>
 
       </div>
