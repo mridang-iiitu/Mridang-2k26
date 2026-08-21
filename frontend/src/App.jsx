@@ -1,4 +1,5 @@
 import React from "react";
+import Events from "./components/Events";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import About from "./components/About";
@@ -10,6 +11,9 @@ import Footer from "./components/Footer";
 import MandalaDecor from "./components/MandalaDecor";
 
 export default function App() {
+    if (window.location.pathname === "/events") {
+    return <Events />;
+  }
   return (
     <div className="app relative animate-page-in">
       <Navbar />
