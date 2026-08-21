@@ -240,7 +240,7 @@ export default function HeroSection() {
           animate={{
             left: isMerch ? "50%" : (isAbout ? "10%" : "50%"),
             x: isMerch ? "-50%" : (isAbout ? "0%" : "-50%"),
-            bottom: "2vh"
+            bottom: isAbout ? "2vh" : "-4vh"
           }}
           transition={transitionConfig}
         >
@@ -277,7 +277,8 @@ export default function HeroSection() {
                 initial={false}
                 animate={{ opacity: isAbout ? 0 : 1 }}
                 transition={fastTransition}
-                className="w-full h-[6.5vh] shrink-0 flex items-center justify-center"
+                className="w-full flex items-center justify-center pb-[1.8vh]"
+                style={{ marginTop: "0.9vh" }}
               >
                 <span className="font-dorsa text-[3.5vh] tracking-[0.25em] text-white/70 uppercase">
                   Scroll to Explore
