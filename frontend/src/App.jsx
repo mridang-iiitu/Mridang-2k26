@@ -62,12 +62,6 @@ export default function App() {
             scaleRange={[0.9, 1.1]}
             opacity={0.04}
           />
-
-          <About />
-          <Schedule />
-          <Sponsors />
-          <Teams />
-          <Contact />
         </div>
       </main>
 
