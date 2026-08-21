@@ -195,7 +195,7 @@ export default function HeroSection() {
           transition={fastTransition}
         >
           <motion.p
-            className="absolute left-8 lg:left-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            className="absolute left-22 lg:left-28 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.02em] text-white/80 py-1"
             style={{ transform: "scaleY(1.35)", transformOrigin: "bottom left" }}
             initial={false}
             animate={{ x: isAbout ? "-50vw" : "0vw" }}
@@ -204,7 +204,7 @@ export default function HeroSection() {
             IIITU PRESENTS
           </motion.p>
           <motion.p
-            className="absolute right-8 lg:right-12 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.12em] text-white/80 py-1"
+            className="absolute right-10 lg:right-29 bottom-8 lg:bottom-10 font-dorsa text-[6vh] lg:text-[6vh] tracking-[0.02em] text-white/80 py-1"
             style={{ transform: "scaleY(1.35)", transformOrigin: "bottom right" }}
             initial={false}
             animate={{ x: isAbout ? "50vw" : "0vw" }}
@@ -240,7 +240,7 @@ export default function HeroSection() {
           animate={{
             left: isMerch ? "50%" : (isAbout ? "10%" : "50%"),
             x: isMerch ? "-50%" : (isAbout ? "0%" : "-50%"),
-            bottom: "2vh"
+            bottom: isAbout ? "2vh" : "-4vh"
           }}
           transition={transitionConfig}
         >
@@ -277,7 +277,8 @@ export default function HeroSection() {
                 initial={false}
                 animate={{ opacity: isAbout ? 0 : 1 }}
                 transition={fastTransition}
-                className="w-full h-[6.5vh] shrink-0 flex items-center justify-center"
+                className="w-full flex items-center justify-center pb-[1.8vh]"
+                style={{ marginTop: "0.9vh" }}
               >
                 <span className="font-dorsa text-[3.5vh] tracking-[0.25em] text-white/70 uppercase">
                   Scroll to Explore
@@ -506,7 +507,7 @@ export default function HeroSection() {
           initial={false}
           animate={{
             opacity: starNightOnly ? 1 : 0,
-            scale: isStarNight ? 1 : 0.5,
+            scale: isStarNight ? 1 : 0.1,
             x: isMerch ? "-100vw" : "0vw",
           }}
           transition={transitionConfig}
@@ -539,9 +540,9 @@ export default function HeroSection() {
                       src={STAR_NIGHT_IMAGES[carouselIndex]}
                       alt={`Star Night ${carouselIndex + 1}`}
                       className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale"
-                      initial={{ opacity: 0, x: 60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60 }}
+                      initial={{ opacity: 0, x: 60, scale: 0.3 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -60, scale: 0.3 }}
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                     />
                   </AnimatePresence>

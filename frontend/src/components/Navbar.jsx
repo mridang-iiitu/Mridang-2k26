@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logoImg from "../assets/mr.webp";
 import titleImg from "../assets/titles.svg";
 import { Button } from "./ui/Button";
 
 const NAV_LINKS = [
   { label: "Schedule", target: "schedule" },
+  { label: "Events", target: "events", isRoute: true },
   { label: "Sponsors", target: "sponsors" },
+  { label: "Merch", target: "merch" },
+  { label: "Our Team", target: "teams" },
   { label: "About Us", target: "about" },
-  { label: "Teams", target: "teams" },
-  { label: "Contact Us", target: "contact" },
 ];
 
 export default function Navbar() {
@@ -56,9 +58,8 @@ export default function Navbar() {
             equal side columns regardless of how wide the logos or the button
             render. Figma leaves 318 / 320 either side of it. */}
         <div className="flex-1 min-w-0 flex items-center gap-4 lg:gap-6">
-            <a
-              href="#hero"
-              onClick={(e) => scrollTo(e, "hero")}
+            <Link
+              to="/"
               className="transition-transform duration-200 hover:scale-105 active:scale-95"
             >
               <img
@@ -67,7 +68,7 @@ export default function Navbar() {
                 className="h-12 lg:h-14 w-auto object-contain"
                 draggable="false"
               />
-            </a>
+            </Link>
             <a
               href="#"
               className="transition-transform duration-200 hover:scale-105 active:scale-95"
@@ -86,14 +87,24 @@ export default function Navbar() {
           className={`hidden lg:flex gradient-ring nav-menu-capsule ${isScrolled ? "scrolled-capsule" : ""}`}
         >
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.target}
-              href={`#${link.target}`}
-              onClick={(e) => scrollTo(e, link.target)}
-              className="nav-menu-link"
-            >
-              {link.label}
-            </a>
+            link.isRoute ? (
+              <Link
+                key={link.target}
+                to={`/${link.target}`}
+                className="nav-menu-link"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.target}
+                href={`#${link.target}`}
+                onClick={(e) => scrollTo(e, link.target)}
+                className="nav-menu-link"
+              >
+                {link.label}
+              </a>
+            )
           ))}
         </div>
 
