@@ -8,6 +8,7 @@ import jacketImg from "../assets/jacket.png";
 import jacket2Img from "../assets/jacket2.png";
 import bandanaImg from "../assets/bandana.png";
 import bandana2Img from "../assets/bandana2.png";
+import iiituLogo from "../assets/iiitu-logo.png";
 import { Button } from "./ui/Button";
 
 const COUNTDOWN_UNITS = [
@@ -512,7 +513,7 @@ export default function HeroSection() {
             FOOTER LAYER (Fades in on Merch Vertical State)
             ============================================================== */}
         <motion.div
-          className="absolute bottom-0 left-0 w-full h-[22vh] z-[34] bg-[#4a0808]/95 pointer-events-auto flex items-center px-[5%] justify-between overflow-hidden"
+          className="absolute bottom-0 left-0 w-full h-[22vh] z-[38] bg-[#4a0808]/95 pointer-events-auto flex items-center justify-center pr-[25vw] overflow-hidden"
           initial={false}
           animate={{
             opacity: isMerchVertical ? 1 : 0,
@@ -522,13 +523,22 @@ export default function HeroSection() {
         >
           {/* Left Side Content Wrapper */}
           <div className="flex items-center gap-[4vw] h-full">
-
-            {/* 1. Static Mridang Logo */}
-            <img
-              src={mrImg}
-              alt="Mridang"
-              className="h-[14vh] w-auto object-contain opacity-100 shrink-0"
-            />
+            {/* 1. Logos */}
+            <div className="shrink-0 flex items-center">
+              {/* Mridang logo */}
+              <img
+                src={mrImg}
+                alt="Mridang"
+                className="h-[14vh] w-auto object-contain relative z-10"
+              />
+              {/* IIITU logo */}
+              <img
+                src={iiituLogo}
+                alt="IIIT Una"
+                className="h-[10vh] w-auto object-contain opacity-70 relative z-0"
+                style={{ marginLeft: "-3vh" }}
+              />
+            </div>
 
             {/* 2. Delayed Elements (Slide in from Right) */}
             <motion.div
@@ -545,10 +555,7 @@ export default function HeroSection() {
               }}
             >
               {/* Column A: IIIT Una Info */}
-              <div className="flex items-center gap-4">
-                <div className="w-[10vh] h-[10vh] shrink-0 rounded-full border border-yellow-600/50 flex items-center justify-center bg-yellow-900/20 text-yellow-500/50 text-[1vh]">
-                  IIITU Logo
-                </div>
+              <div className="flex flex-col">
                 <div className="flex flex-col text-white font-serif leading-[1.3]" style={{ fontSize: "1.7vh" }}>
                   <span className="font-bold">
                     Indian Institute of<br />
@@ -556,19 +563,25 @@ export default function HeroSection() {
                     Himachal Pradesh 177209
                   </span>
                   <span className="font-bold mt-[1.5vh]">Contacts</span>
-                  <span className="text-white/80 font-sans font-light" style={{ fontSize: "1.5vh" }}>
-                    mridang@iiitu.ac.in<br />
-                    www.iiitu.ac.in
-                  </span>
+                  <div className="flex flex-col text-white/80 font-sans font-light gap-[0.2vh]" style={{ fontSize: "1.5vh" }}>
+                    <a href="mailto:mridang@iiitu.ac.in" className="hover:text-white transition-colors">mridang@iiitu.ac.in</a>
+                    <a href="https://www.iiitu.ac.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">www.iiitu.ac.in</a>
+                  </div>
                 </div>
               </div>
 
               {/* Column B: Navigations */}
               <div className="flex flex-col gap-[0.8vh]">
                 <span className="font-serif font-bold text-white mb-[0.2vh]" style={{ fontSize: "1.9vh" }}>Navigations</span>
-                {["Schedule", "Sponsors", "About Us", "Teams", "Contact Us"].map((link) => (
-                  <a key={link} href="#" className="text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
-                    {link}
+                {[
+                  { label: "Schedule", href: "#schedule" },
+                  { label: "Sponsors", href: "#sponsors" },
+                  { label: "About Us", href: "#hero" },
+                  { label: "Teams", href: "#teams" },
+                  { label: "Contact Us", href: "#contact" },
+                ].map((link) => (
+                  <a key={link.label} href={link.href} className="text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                    {link.label}
                   </a>
                 ))}
               </div>
@@ -576,20 +589,18 @@ export default function HeroSection() {
               {/* Column C: Socials */}
               <div className="flex flex-col gap-[0.8vh]">
                 <span className="font-serif font-bold text-white mb-[0.2vh]" style={{ fontSize: "1.9vh" }}>Socials</span>
-                <a href="#" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
-                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">IG</span> mridang.iitu
+                <a href="https://www.instagram.com/mridang.iiitu" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">IG</span> mridang.iiitu
                 </a>
-                <a href="#" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
-                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">M</span> mridang.com
+                <a href="https://mridang.iiitu.ac.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">M</span> mridang.iiitu.ac.in
                 </a>
-                <a href="#" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                <a href="https://www.youtube.com/@MridangIIITU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
                   <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">YT</span> Mridang IIITU
                 </a>
               </div>
             </motion.div>
           </div>
-
-          <div className="w-[35vh] shrink-0"></div>
         </motion.div>
 
         {/* ==============================================================
@@ -614,7 +625,7 @@ export default function HeroSection() {
             {/* ── Left: Product Image + Thumbnails ── */}
             <motion.div
               layout
-              className={`flex ${isMerchVertical ? "flex-col items-center" : "flex-row items-center gap-[2vw]"} shrink-0`}
+              className={`flex ${isMerchVertical ? "flex-row items-center gap-[2vw]" : "flex-col items-center"} shrink-0`}
             >
               {/* Main product image */}
               <motion.div layout className="relative" style={{ width: "clamp(260px, 30vw, 400px)", height: "clamp(280px, 38vh, 440px)" }}>
@@ -636,7 +647,7 @@ export default function HeroSection() {
               {/* Thumbnails - Automatically animates layout changes */}
               <motion.div
                 layout
-                className={`flex ${isMerchVertical ? "flex-row" : "flex-col"} gap-3 ${isMerchVertical ? "mt-4" : "mt-0"}`}
+                className={`flex ${isMerchVertical ? "flex-col" : "flex-row"} gap-3 ${isMerchVertical ? "mt-0" : "mt-4"}`}
                 transition={transitionConfig}
               >
                 {MERCH_PRODUCTS.map((product, i) => (

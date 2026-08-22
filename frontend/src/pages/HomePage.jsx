@@ -13,7 +13,7 @@ export default function HomePage() {
         <HeroSection />
 
         {/* ---- Mandala decorations between sections (scrubbed rotation) ---- */}
-        <div style={{ position: "relative" }}>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Left mandala near About section */}
           <MandalaDecor
             size="clamp(200px, 28vw, 420px)"
@@ -55,8 +55,6 @@ export default function HomePage() {
           />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
