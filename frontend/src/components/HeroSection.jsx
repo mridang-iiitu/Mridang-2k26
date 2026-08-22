@@ -8,6 +8,7 @@ import jacketImg from "../assets/jacket.png";
 import jacket2Img from "../assets/jacket2.png";
 import bandanaImg from "../assets/bandana.png";
 import bandana2Img from "../assets/bandana2.png";
+import iiituLogo from "../assets/iiitu-logo.png";
 import { Button } from "./ui/Button";
 
 const COUNTDOWN_UNITS = [
@@ -16,7 +17,6 @@ const COUNTDOWN_UNITS = [
   { value: "43", label: "min" },
   { value: "12", label: "sec" },
 ];
-
 
 const COLLAGE_IMAGES_COL1 = [
   "https://picsum.photos/seed/c1a/450/300", // 3:2
@@ -32,9 +32,7 @@ const COLLAGE_IMAGES_COL2 = [
   "https://picsum.photos/seed/c2d/450/675", // 2:3, tallest portrait
 ];
 
-/* ── Star Night Carousel Images ──
-   Replace these placeholder URLs with real event photos.
-   The first image is "star night.png" — swap when available. */
+/* ── Star Night Carousel Images ── */
 const STAR_NIGHT_IMAGES = [
   "https://picsum.photos/seed/sn1/800/500",
   "https://picsum.photos/seed/sn2/800/500",
@@ -54,9 +52,13 @@ const MERCH_PRODUCTS = [
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
+
+  // ── Scroll States ──
   const [isAbout, setIsAbout] = useState(false);
   const [isStarNight, setIsStarNight] = useState(false);
   const [isMerch, setIsMerch] = useState(false);
+  const [isMerchVertical, setIsMerchVertical] = useState(false);
+
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [merchProductIndex, setMerchProductIndex] = useState(0);
   const autoPlayRef = useRef(null);
@@ -72,20 +74,29 @@ export default function HeroSection() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Four-state system: Hero → About → Star Night → Merch
-    if (latest > 0.72) {
+    // Five-state system: Hero → About → Star Night → Merch Horizontal → Merch Vertical
+    if (latest > 0.85) {
+      if (!isMerchVertical) setIsMerchVertical(true);
+      if (!isMerch) setIsMerch(true);
+      if (!isStarNight) setIsStarNight(true);
+      if (!isAbout) setIsAbout(true);
+    } else if (latest > 0.72) {
+      if (isMerchVertical) setIsMerchVertical(false);
       if (!isMerch) setIsMerch(true);
       if (!isStarNight) setIsStarNight(true);
       if (!isAbout) setIsAbout(true);
     } else if (latest > 0.42) {
+      if (isMerchVertical) setIsMerchVertical(false);
       if (isMerch) setIsMerch(false);
       if (!isStarNight) setIsStarNight(true);
       if (!isAbout) setIsAbout(true);
     } else if (latest > 0.15) {
+      if (isMerchVertical) setIsMerchVertical(false);
       if (isMerch) setIsMerch(false);
       if (isStarNight) setIsStarNight(false);
       if (!isAbout) setIsAbout(true);
     } else {
+      if (isMerchVertical) setIsMerchVertical(false);
       if (isMerch) setIsMerch(false);
       if (isStarNight) setIsStarNight(false);
       if (isAbout) setIsAbout(false);
@@ -119,7 +130,7 @@ export default function HeroSection() {
   const starNightOnly = isStarNight && !isMerch;
 
   return (
-    <section ref={containerRef} id="hero" className="relative w-full h-[350vh]">
+    <section ref={containerRef} id="hero" className="relative w-full h-[450vh]">
 
       {/* ── STICKY CONTAINER ── */}
       <div className="sticky top-0 w-full h-screen overflow-hidden">
@@ -233,28 +244,48 @@ export default function HeroSection() {
           <img src={mandala} alt="" aria-hidden="true" draggable="false" className="w-full h-auto opacity-30 animate-rotate-ccw" style={{ animationDuration: "35s" }} />
         </motion.div>
 
-        {/* ── Countdown Clock + Scroll CTA ── */}
+        {/* ── Countdown Clock + Scroll CTA + Mridang In ── */}
         <motion.div
           className="absolute z-[40]"
           initial={false}
           animate={{
-            left: isMerch ? "50%" : (isAbout ? "10%" : "50%"),
-            x: isMerch ? "-50%" : (isAbout ? "0%" : "-50%"),
-            bottom: isAbout ? "2vh" : "-4vh"
+            left: isMerchVertical ? "75%" : (isMerch ? "50%" : (isAbout ? "10%" : "50%")),
+            x: isMerchVertical ? "0%" : (isMerch ? "-50%" : (isAbout ? "0%" : "-50%")),
+            bottom: isMerchVertical ? "3vh" : "2vh"
           }}
           transition={transitionConfig}
         >
           <div className={`flex flex-col items-center ${mounted ? "animate-slide-up" : "opacity-0"}`} style={{ animationDelay: "600ms", animationFillMode: "both" }}>
             <motion.div
-              className="gradient-ring flex flex-col items-center rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10 overflow-hidden"
+              className="gradient-ring flex flex-col items-center justify-center rounded-[2.04vh] bg-black/10 shadow-[0_0_8px_7px_rgba(0,0,0,0.5)] z-10 overflow-hidden relative"
               initial={false}
               animate={{
                 height: isAbout ? "15.6vh" : "22.5vh",
                 scale: isAbout ? 0.9 : 1
               }}
-              style={{ width: "33vh", padding: "1.8vh", transformOrigin: "bottom left" }}
+              style={{ width: "33vh", padding: "1.8vh", transformOrigin: "bottom right" }}
               transition={transitionConfig}
             >
+
+              {/* ── "MRIDANG IN" Title (Fades in on vertical merch state with 2s delay) ── */}
+              <motion.div
+                initial={false}
+                animate={{
+                  opacity: isMerchVertical ? 1 : 0,
+                  height: isMerchVertical ? "auto" : "0px",
+                  marginBottom: isMerchVertical ? "1vh" : "0px"
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: isMerchVertical ? 2 : 0,
+                  ease: "easeOut"
+                }}
+                className="w-full flex justify-center overflow-hidden"
+              >
+                <span className="font-serif text-white tracking-[0.4em] uppercase font-semibold" style={{ fontSize: "2.2vh" }}>
+                  Mridang In
+                </span>
+              </motion.div>
 
               <div className="flex items-center justify-center w-full h-[10.8vh] border border-white/20 rounded-[1.53vh] bg-black/30 shadow-[0_4px_5px_0_rgba(0,0,0,0.5)] select-none shrink-0">
                 <div className="flex items-baseline justify-center gap-x-[0.4vh]">
@@ -272,13 +303,12 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Scroll CTA inside clock box */}
+              {/* Scroll CTA inside clock box (Hides when in Merch state) */}
               <motion.div
                 initial={false}
-                animate={{ opacity: isAbout ? 0 : 1 }}
+                animate={{ opacity: (isAbout || isMerch) ? 0 : 1 }}
                 transition={fastTransition}
-                className="w-full flex items-center justify-center pb-[1.8vh]"
-                style={{ marginTop: "0.9vh" }}
+                className="w-full h-[6.5vh] shrink-0 flex items-center justify-center absolute bottom-0"
               >
                 <span className="font-dorsa text-[3.5vh] tracking-[0.25em] text-white/70 uppercase">
                   Scroll to Explore
@@ -293,7 +323,6 @@ export default function HeroSection() {
             ABOUT LAYER
             ============================================================== */}
 
-        {/* ── About Left Text & Buttons ── */}
         <motion.div
           className="absolute top-[14vh] left-[10%] w-full max-w-xl z-30"
           initial={false}
@@ -303,10 +332,7 @@ export default function HeroSection() {
             x: aboutOnly ? "0px" : (isStarNight ? "0px" : "-50px"),
           }}
           transition={transitionConfig}
-          style={{
-            pointerEvents: aboutOnly ? "auto" : "none",
-            transformOrigin: "center center",
-          }}
+          style={{ pointerEvents: aboutOnly ? "auto" : "none", transformOrigin: "center center" }}
         >
           <div className="flex items-end gap-2">
             <img src={mrImg} alt="Mridang" className="h-[80px] lg:h-[110px] w-auto object-contain" />
@@ -326,16 +352,12 @@ export default function HeroSection() {
             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad
             minim veniam, quis nostrud exercitation laboris ut aliqui.
           </p>
-          <div
-            className="flex flex-wrap items-center gap-6"
-            style={{ marginTop: "40px" }}
-          >
+          <div className="flex flex-wrap items-center gap-6" style={{ marginTop: "40px" }}>
             <Button variant="explore">EXPLORE</Button>
             <Button variant="register">REGISTER</Button>
           </div>
         </motion.div>
 
-        {/* ── About Right Photos ── */}
         <motion.div
           className="absolute top-0 right-0 w-[42vw] h-screen z-30 pointer-events-none"
           initial={false}
@@ -349,151 +371,38 @@ export default function HeroSection() {
           style={{ transformOrigin: "center center" }}
         >
           <div className="relative w-full h-full overflow-hidden pointer-events-auto">
-
-            {/* ───────────── IMG 1 (BACK LAYER - Right side) ───────────── */}
-            <motion.div 
-              className="absolute top-0 right-0 w-[24.3%] h-[12%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.3 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL1[0]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 3 (BACK LAYER - Right side) ───────────── */}
-            <motion.div 
-              className="absolute right-0 top-[13.8%] w-[42.5%] h-[22.5%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.4 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL2[0]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 5 (BACK LAYER - Right side) ───────────── */}
-            <motion.div 
-              className="absolute right-0 top-[38.4%] w-[53.7%] h-[25.9%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.5 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL2[1]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 7 (BACK LAYER - Right side) ───────────── */}
-            <motion.div 
-              className="absolute right-0 top-[66.3%] w-[37%] h-[33.7%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.6 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL2[2]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 2 (FRONT LAYER - Left side, overlaps) ───────────── */}
-            <motion.div 
-              className="absolute left-[14.9%] top-[20.6%] w-[39%] h-[15.7%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 0.9 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL1[1]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 4 (FRONT LAYER - Left side, overlaps) ───────────── */}
-            <motion.div 
-              className="absolute left-0 top-[38.4%] w-[42.3%] h-[25.9%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.0 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL1[2]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 6 (FRONT LAYER - Left side, overlaps) ───────────── */}
-            <motion.div 
-              className="absolute left-[11.2%] top-[66.3%] w-[49.2%] h-[17.5%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.1 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL1[3]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
-            {/* ───────────── IMG 8 (FRONT LAYER - Left side, overlaps) ───────────── */}
-            <motion.div 
-              className="absolute left-[35.1%] top-[86%] w-[25.3%] h-[14%] overflow-hidden"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              animate={{ 
-                opacity: aboutOnly ? 1 : 0, 
-                x: aboutOnly ? 0 : 100,
-                y: aboutOnly ? 0 : 50
-              }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: aboutOnly ? 1.2 : 0 }}
-            >
-              <img
-                src={COLLAGE_IMAGES_COL2[3]}
-                alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </motion.div>
-
+            {/* ───────────── IMG 1 ───────────── */}
+            <div className="absolute top-0 right-0 w-[24.3%] h-[12%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL1[0]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 2 ───────────── */}
+            <div className="absolute left-[14.9%] top-[20.6%] w-[39%] h-[15.7%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL1[1]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 3 ───────────── */}
+            <div className="absolute right-0 top-[13.8%] w-[42.5%] h-[22.5%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL2[0]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 4 ───────────── */}
+            <div className="absolute left-0 top-[38.4%] w-[42.3%] h-[25.9%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL1[2]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 5 ───────────── */}
+            <div className="absolute right-0 top-[38.4%] w-[53.7%] h-[25.9%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL2[1]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 6 ───────────── */}
+            <div className="absolute left-[11.2%] top-[66.3%] w-[49.2%] h-[17.5%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL1[3]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 7 ───────────── */}
+            <div className="absolute right-0 top-[66.3%] w-[37%] h-[33.7%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL2[2]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
+            {/* ───────────── IMG 8 ───────────── */}
+            <div className="absolute left-[35.1%] top-[86%] w-[25.3%] h-[14%] overflow-hidden">
+              <img src={COLLAGE_IMAGES_COL2[3]} alt="" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" />
+            </div>
           </div>
         </motion.div>
 
@@ -511,27 +420,15 @@ export default function HeroSection() {
             x: isMerch ? "-100vw" : "0vw",
           }}
           transition={transitionConfig}
-          style={{
-            pointerEvents: starNightOnly ? "auto" : "none",
-            transformOrigin: "center center",
-          }}
+          style={{ pointerEvents: starNightOnly ? "auto" : "none", transformOrigin: "center center" }}
         >
           {/* Carousel Container */}
           <div className="relative w-full flex flex-col items-center" style={{ marginTop: "24vh" }}>
 
             {/* ── Image Carousel ── */}
             <div className="relative w-[75vw] max-w-[900px]" style={{ height: "46vh" }}>
-
-              {/* Gradient-ring wrapper for the active/centre image area */}
               <div className="gradient-ring absolute left-1/2 top-0 rounded-[16px] overflow-hidden"
-                style={{
-                  width: "42vw",
-                  maxWidth: "520px",
-                  height: "100%",
-                  transform: "translateX(-50%)",
-                  zIndex: 3,
-                  padding: "6px",
-                }}
+                style={{ width: "42vw", maxWidth: "520px", height: "100%", transform: "translateX(-50%)", zIndex: 3, padding: "6px" }}
               >
                 <div className="group w-full h-full rounded-[12px] overflow-hidden bg-black/20 relative cursor-pointer">
                   <AnimatePresence mode="wait">
@@ -546,7 +443,6 @@ export default function HeroSection() {
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                     />
                   </AnimatePresence>
-                  {/* View Event overlay — appears on hover */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-10">
                     <button className="view-event-btn">
                       <span>View Event</span>
@@ -559,103 +455,50 @@ export default function HeroSection() {
               <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
                 initial={false}
-                animate={{
-                  x: starNightOnly ? "0%" : "40%",
-                  opacity: starNightOnly ? 0.6 : 0,
-                }}
+                animate={{ x: starNightOnly ? "0%" : "40%", opacity: starNightOnly ? 0.6 : 0 }}
                 transition={{ ...transitionConfig, delay: starNightOnly ? 1.5 : 0 }}
-                style={{
-                  left: "0",
-                  width: "30vw",
-                  maxWidth: "360px",
-                  height: "80%",
-                  zIndex: 1,
-                }}
+                style={{ left: "0", width: "30vw", maxWidth: "360px", height: "80%", zIndex: 1 }}
               >
-                <img
-                  src={STAR_NIGHT_IMAGES[(carouselIndex - 1 + STAR_NIGHT_IMAGES.length) % STAR_NIGHT_IMAGES.length]}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <img src={STAR_NIGHT_IMAGES[(carouselIndex - 1 + STAR_NIGHT_IMAGES.length) % STAR_NIGHT_IMAGES.length]} alt="" className="w-full h-full object-cover" />
               </motion.div>
 
               {/* Right peek image */}
               <motion.div
                 className="absolute top-[8%] rounded-[12px] overflow-hidden"
                 initial={false}
-                animate={{
-                  x: starNightOnly ? "0%" : "-40%",
-                  opacity: starNightOnly ? 0.6 : 0,
-                }}
+                animate={{ x: starNightOnly ? "0%" : "-40%", opacity: starNightOnly ? 0.6 : 0 }}
                 transition={{ ...transitionConfig, delay: starNightOnly ? 1.5 : 0 }}
-                style={{
-                  right: "0",
-                  width: "30vw",
-                  maxWidth: "360px",
-                  height: "80%",
-                  zIndex: 1,
-                }}
+                style={{ right: "0", width: "30vw", maxWidth: "360px", height: "80%", zIndex: 1 }}
               >
-                <img
-                  src={STAR_NIGHT_IMAGES[(carouselIndex + 1) % STAR_NIGHT_IMAGES.length]}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <img src={STAR_NIGHT_IMAGES[(carouselIndex + 1) % STAR_NIGHT_IMAGES.length]} alt="" className="w-full h-full object-cover" />
               </motion.div>
 
               {/* Left Arrow */}
-              <button
-                onClick={prevSlide}
-                className="carousel-arrow absolute left-[-4vw] top-1/2 -translate-y-1/2 z-10"
-                aria-label="Previous slide"
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+              <button onClick={prevSlide} className="carousel-arrow absolute left-[-4vw] top-1/2 -translate-y-1/2 z-10" aria-label="Previous slide">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
               </button>
-
               {/* Right Arrow */}
-              <button
-                onClick={nextSlide}
-                className="carousel-arrow absolute right-[-4vw] top-1/2 -translate-y-1/2 z-10"
-                aria-label="Next slide"
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
+              <button onClick={nextSlide} className="carousel-arrow absolute right-[-4vw] top-1/2 -translate-y-1/2 z-10" aria-label="Next slide">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
               </button>
             </div>
 
-            {/* ── Title ── */}
+            {/* ── Title & Desc ── */}
             <h2
               className="font-dorsa text-white text-center uppercase tracking-[0.15em] select-none"
-              style={{
-                fontSize: "clamp(40px, 7vh, 72px)",
-                marginTop: "3vh",
-                transform: "scaleY(1.3)",
-                transformOrigin: "top center",
-                letterSpacing: "0.08em",
-              }}
+              style={{ fontSize: "clamp(40px, 7vh, 72px)", marginTop: "3vh", transform: "scaleY(1.3)", transformOrigin: "top center", letterSpacing: "0.08em" }}
             >
               STAR-NIGHT
             </h2>
-
-            {/* ── Description ── */}
             <p
               className="text-white/70 font-sans text-center max-w-lg leading-[1.7] font-medium"
-              style={{
-                fontSize: "clamp(14px, 1.6vh, 18px)",
-                marginTop: "1.5vh",
-                padding: "0 20px",
-              }}
+              style={{ fontSize: "clamp(14px, 1.6vh, 18px)", marginTop: "1.5vh", padding: "0 20px" }}
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
           </div>
 
-          {/* ── EXPLORE Button (bottom-right) ── */}
           <motion.div
             className="absolute bottom-[3vh] right-[5%] z-[40]"
             initial={false}
@@ -666,6 +509,99 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
+        {/* ==============================================================
+            FOOTER LAYER (Fades in on Merch Vertical State)
+            ============================================================== */}
+        <motion.div
+          className="absolute bottom-0 left-0 w-full h-[22vh] z-[38] bg-[#4a0808]/95 pointer-events-auto flex items-center justify-center pr-[25vw] overflow-hidden"
+          initial={false}
+          animate={{
+            opacity: isMerchVertical ? 1 : 0,
+            y: isMerchVertical ? "0vh" : "5vh"
+          }}
+          transition={transitionConfig}
+        >
+          {/* Left Side Content Wrapper */}
+          <div className="flex items-center gap-[4vw] h-full">
+            {/* 1. Logos */}
+            <div className="shrink-0 flex items-center">
+              {/* Mridang logo */}
+              <img
+                src={mrImg}
+                alt="Mridang"
+                className="h-[14vh] w-auto object-contain relative z-10"
+              />
+              {/* IIITU logo */}
+              <img
+                src={iiituLogo}
+                alt="IIIT Una"
+                className="h-[10vh] w-auto object-contain opacity-70 relative z-0"
+                style={{ marginLeft: "-3vh" }}
+              />
+            </div>
+
+            {/* 2. Delayed Elements (Slide in from Right) */}
+            <motion.div
+              className="flex items-start gap-[4vw]"
+              initial={false}
+              animate={{
+                opacity: isMerchVertical ? 1 : 0,
+                x: isMerchVertical ? 0 : 60
+              }}
+              transition={{
+                duration: 0.8,
+                delay: isMerchVertical ? 2 : 0, // 2-second delay
+                ease: "easeOut"
+              }}
+            >
+              {/* Column A: IIIT Una Info */}
+              <div className="flex flex-col">
+                <div className="flex flex-col text-white font-serif leading-[1.3]" style={{ fontSize: "1.7vh" }}>
+                  <span className="font-bold">
+                    Indian Institute of<br />
+                    Information Technology Una<br />
+                    Himachal Pradesh 177209
+                  </span>
+                  <span className="font-bold mt-[1.5vh]">Contacts</span>
+                  <div className="flex flex-col text-white/80 font-sans font-light gap-[0.2vh]" style={{ fontSize: "1.5vh" }}>
+                    <a href="mailto:mridang@iiitu.ac.in" className="hover:text-white transition-colors">mridang@iiitu.ac.in</a>
+                    <a href="https://www.iiitu.ac.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">www.iiitu.ac.in</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Column B: Navigations */}
+              <div className="flex flex-col gap-[0.8vh]">
+                <span className="font-serif font-bold text-white mb-[0.2vh]" style={{ fontSize: "1.9vh" }}>Navigations</span>
+                {[
+                  { label: "Schedule", href: "#schedule" },
+                  { label: "Sponsors", href: "#sponsors" },
+                  { label: "About Us", href: "#hero" },
+                  { label: "Teams", href: "#teams" },
+                  { label: "Contact Us", href: "#contact" },
+                ].map((link) => (
+                  <a key={link.label} href={link.href} className="text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+
+              {/* Column C: Socials */}
+              <div className="flex flex-col gap-[0.8vh]">
+                <span className="font-serif font-bold text-white mb-[0.2vh]" style={{ fontSize: "1.9vh" }}>Socials</span>
+                <a href="https://www.instagram.com/mridang.iiitu" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">IG</span> mridang.iiitu
+                </a>
+                <a href="https://mridang.iiitu.ac.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">M</span> mridang.iiitu.ac.in
+                </a>
+                <a href="https://www.youtube.com/@MridangIIITU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 font-sans font-light hover:text-white transition-colors" style={{ fontSize: "1.5vh" }}>
+                  <span className="w-4 h-4 border border-white/50 rounded flex items-center justify-center text-[10px]">YT</span> Mridang IIITU
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
 
         {/* ==============================================================
             MERCHANDISE LAYER
@@ -681,12 +617,18 @@ export default function HeroSection() {
           transition={transitionConfig}
           style={{ pointerEvents: isMerch ? "auto" : "none" }}
         >
-          <div className="w-full flex items-center justify-center gap-[6vw] px-[8%]" style={{ marginTop: "-4vh" }}>
-
+          <motion.div
+            layout
+            className="w-full flex items-center justify-center gap-[6vw] px-[8%]"
+            style={{ marginTop: "-4vh" }}
+          >
             {/* ── Left: Product Image + Thumbnails ── */}
-            <div className="flex flex-col items-center shrink-0">
+            <motion.div
+              layout
+              className={`flex ${isMerchVertical ? "flex-row items-center gap-[2vw]" : "flex-col items-center"} shrink-0`}
+            >
               {/* Main product image */}
-              <div className="relative" style={{ width: "clamp(260px, 30vw, 400px)", height: "clamp(280px, 38vh, 440px)" }}>
+              <motion.div layout className="relative" style={{ width: "clamp(260px, 30vw, 400px)", height: "clamp(280px, 38vh, 440px)" }}>
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={merchProductIndex}
@@ -700,44 +642,45 @@ export default function HeroSection() {
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                   />
                 </AnimatePresence>
-              </div>
+              </motion.div>
 
-              {/* Thumbnails */}
-              <div className="flex gap-3 mt-4">
+              {/* Thumbnails - Automatically animates layout changes */}
+              <motion.div
+                layout
+                className={`flex ${isMerchVertical ? "flex-col" : "flex-row"} gap-3 ${isMerchVertical ? "mt-0" : "mt-4"}`}
+                transition={transitionConfig}
+              >
                 {MERCH_PRODUCTS.map((product, i) => (
-                  <button
+                  <motion.button
+                    layout
                     key={product.label}
                     onClick={() => setMerchProductIndex(i)}
-                    className={`merch-thumb ${i === merchProductIndex ? "merch-thumb-active" : ""}`}
+                    className={`merch-thumb w-[64px] h-[64px] rounded-md overflow-hidden transition-colors duration-300 ${i === merchProductIndex
+                      ? "merch-thumb-active border-2 border-white/80"
+                      : "border border-white/30 opacity-70 hover:opacity-100"
+                      }`}
                   >
                     <img
                       src={product.src}
                       alt={product.label}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* ── Right: Title + Description + CTA ── */}
-            <div className="flex flex-col max-w-lg">
-              {/* Title row */}
+            <motion.div layout className="flex flex-col max-w-lg">
               <div className="flex items-center gap-3 mb-6">
                 <img src={mrImg} alt="Mridang" className="h-[50px] lg:h-[65px] w-auto object-contain" />
                 <h2
                   className="font-dorsa text-white uppercase tracking-widest leading-[0.85]"
-                  style={{
-                    fontSize: "clamp(48px, 7vw, 90px)",
-                    transform: "scaleY(1.3)",
-                    transformOrigin: "bottom left",
-                  }}
+                  style={{ fontSize: "clamp(48px, 7vw, 90px)", transform: "scaleY(1.3)", transformOrigin: "bottom left" }}
                 >
                   MERCHANDISE
                 </h2>
               </div>
-
-              {/* Description */}
               <p
                 className="text-white/80 font-sans text-justify leading-[1.8] font-medium"
                 style={{ fontSize: "clamp(15px, 1.5vw, 20px)" }}
@@ -746,14 +689,12 @@ export default function HeroSection() {
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea
               </p>
-
-              {/* Shop Now button */}
               <div className="mt-8">
                 <Button variant="explore">Shop Now</Button>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </motion.div>
 
       </div>
